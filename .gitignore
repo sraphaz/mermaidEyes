@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+**/dist/
+**/*.tsbuildinfo
+out/
+*.vsix
+
+# Coverage & test
+coverage/
+**/.nyc_output/
+
+# IDE (opcional: commitar .vscode/ para launch/tasks da extensão)
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.local
+.env.*.local
