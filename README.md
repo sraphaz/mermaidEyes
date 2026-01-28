@@ -52,6 +52,12 @@ Set these in your VS Code/Cursor settings:
 2. Add a `preset.json` file with Mermaid directives.
 3. Set `mermaidlens.preset` to your preset id and refresh the preview.
 
+## Publishing
+
+- **VSIX:** `npm run package:vsix` (requires Node 20+). Output: `extension/mermaidlens-extension-<version>.vsix`.
+- **CI/CD:** Push to `main` runs CI (build, test, package). Creating a **GitHub Release** (e.g. `v0.2.1`) runs the Release workflow: it builds, packages, uploads the VSIX to the release, and **publishes to the VS Code Marketplace** if the `VS_MARKETPLACE_TOKEN` secret is set.
+- **Marketplace token:** Create a [Personal Access Token](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token) (Azure DevOps) for the Marketplace, add it as repository secret `VS_MARKETPLACE_TOKEN`, then publish a release. Without it, the workflow still uploads the VSIX to the release and as an artifact.
+
 ## Troubleshooting
 
 - **Punycode / SQLite warnings in console:** When launching with F5, we set `NODE_OPTIONS=--no-deprecation --no-warnings` in `.vscode/launch.json` to silence these Node/VS Code messages. They do not affect the extension.
