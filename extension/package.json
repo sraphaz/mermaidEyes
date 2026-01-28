@@ -2,8 +2,9 @@
   "name": "mermaidlens-extension",
   "displayName": "MermaidLens",
   "description": "Inline Mermaid diagrams for Markdown preview with themes and presets.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "mermaidlens",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/sraphaz/mermaidLens.git"
@@ -13,6 +14,7 @@
   "engines": {
     "vscode": "^1.85.0"
   },
+  "icon": "media/icone.png",
   "categories": [
     "Other"
   ],
@@ -49,8 +51,13 @@
         },
         "mermaidlens.preset": {
           "type": "string",
-          "default": "architecture",
-          "description": "Preset id to apply to Mermaid directives."
+          "default": "none",
+          "description": "Preset id to apply to Mermaid directives. Use 'none' to avoid init blocks that can cause 'No diagram type detected'."
+        },
+        "mermaidlens.diagramOnHover": {
+          "type": "boolean",
+          "default": false,
+          "description": "When enabled, show a 'View diagram' placeholder; hovering reveals the diagram (no icon in preview)."
         }
       }
     }

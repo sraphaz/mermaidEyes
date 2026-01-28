@@ -1,0 +1,11 @@
+.vscode/**
+.vscodeignore
+src/**
+tsconfig.json
+**/*.map
+**/*.ts
+!**/*.d.ts
+**/__tests__/**
+**/*.test.*
+node_modules/.bin/**
+packages/template/**

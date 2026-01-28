@@ -1,6 +1,10 @@
 import type { MermaidTheme } from "@mermaidlens/core";
 
-export function injectAssets(theme?: MermaidTheme): string {
+export interface InjectAssetsOptions {
+  diagramOnHover?: boolean;
+}
+
+export function injectAssets(theme?: MermaidTheme, opts?: InjectAssetsOptions): string {
   const mermaidConfig = theme?.mermaid ?? {
     theme: "base",
     themeVariables: {}
@@ -9,7 +13,8 @@ export function injectAssets(theme?: MermaidTheme): string {
   const configJson = JSON.stringify({
     startOnLoad: false,
     theme: mermaidConfig.theme,
-    themeVariables: mermaidConfig.themeVariables
+    themeVariables: mermaidConfig.themeVariables,
+    diagramOnHover: opts?.diagramOnHover ?? false
   });
 
   // Escapa o JSON para uso seguro em atributo HTML
@@ -79,6 +84,39 @@ export function injectAssets(theme?: MermaidTheme): string {
   background: rgba(148, 163, 184, 0.1);
   border-color: rgba(148, 163, 184, 0.2);
 }
+.mermaidlens-hover-mode .mermaidlens-label { display: none; }
+.mermaidlens-hover-mode .mermaidlens-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  background: ${primaryColor}22;
+  border: 1px dashed ${primaryColor}66;
+  color: ${primaryColor};
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.mermaidlens-hover-mode .mermaidlens-placeholder:hover { opacity: 0.9; }
+.mermaidlens-hover-mode .mermaidlens-render {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  margin-top: -8px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  max-width: min(90vw, 800px);
+  max-height: 80vh;
+  overflow: auto;
+  background: ${bgColor};
+  border: 1px solid ${primaryColor}33;
+}
+.mermaidlens-hover-mode .mermaidlens-wrap { position: relative; }
+.mermaidlens-hover-mode .mermaidlens-wrap:hover .mermaidlens-render { display: block; }
 </style>
 <div data-mermaidlens-config="${escapedConfig}" style="display: none;"></div>
 `;

@@ -4,12 +4,13 @@ MermaidLens is a VS Code extension (compatible with Cursor) that renders Mermaid
 
 **Repository:** [github.com/sraphaz/mermaidLens](https://github.com/sraphaz/mermaidLens)
 
+The extension icon (`extension/media/icone.png`) is used in the **VS Code Marketplace** and **Git** (e.g. repo, README). It is not shown in the Markdown preview.
+
 ## Features
 
 - ✅ Inline Mermaid diagrams inside Markdown Preview.
-- ✅ Ocean theme enabled by default.
-- ✅ Extensible theme engine (`packages/themes/*`).
-- ✅ Mermaid presets (directives) auto-injected (`packages/presets/*`).
+- ✅ Optional **diagram on hover** (toggle): placeholder "View diagram" → hover shows the diagram.
+- ✅ Ocean theme by default; extensible themes (`packages/themes/*`) and presets (`packages/presets/*`).
 
 ## Getting started
 
@@ -36,7 +37,8 @@ npm test
 Set these in your VS Code/Cursor settings:
 
 - `mermaidlens.theme`: Theme id (default: `ocean`).
-- `mermaidlens.preset`: Preset id (default: `architecture`).
+- `mermaidlens.preset`: Preset id (default: `none`). Use `none` to avoid init blocks; use `architecture` for flowchart tweaks.
+- `mermaidlens.diagramOnHover`: When `true`, the diagram is **shown on hover** over a "View diagram" placeholder (no icon in preview). Turn off to always show diagrams inline.
 
 ## Adding a new theme
 
