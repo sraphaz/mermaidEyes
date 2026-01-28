@@ -1,7 +1,7 @@
 {
   "name": "mermaidlens",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/sraphaz/mermaidLens.git"
