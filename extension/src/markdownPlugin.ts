@@ -1,4 +1,5 @@
 import type MarkdownIt from "markdown-it";
+import type { MermaidTheme } from "@mermaidlens/core";
 import { applyPreset, getPresetById, getThemeById, getDefaultTheme } from "@mermaidlens/core";
 import { injectAssets } from "./injectAssets";
 
@@ -58,7 +59,7 @@ export function markdownPlugin(md: MarkdownIt, options: MermaidLensPluginOptions
     }
   };
 
-  function injectOnce(env: { mermaidlensInjected?: boolean }, theme: { mermaid?: unknown } | undefined): string {
+  function injectOnce(env: { mermaidlensInjected?: boolean }, theme: MermaidTheme | undefined): string {
     if (env.mermaidlensInjected) return "";
     env.mermaidlensInjected = true;
     return injectAssets(theme);
