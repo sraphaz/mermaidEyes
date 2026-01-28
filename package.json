@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc -b && node scripts/copy-assets.js",
     "build:extension": "cd extension && npm run build",
-    "clean": "rimraf extension/dist packages/**/dist coverage extension/packages extension/node_modules",
+    "clean": "rimraf extension/dist packages/core/dist coverage extension/packages extension/node_modules",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "package:vsix": "npm run build && npx rimraf extension/node_modules && node scripts/prepack-for-vsce.mjs && cd extension && npx @vscode/vsce package --no-dependencies"
