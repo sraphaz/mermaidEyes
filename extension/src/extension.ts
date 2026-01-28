@@ -10,7 +10,11 @@ function getThemeSetting(): string {
 }
 
 function getPresetSetting(): string {
-  return vscode.workspace.getConfiguration().get<string>("mermaidlens.preset", "architecture");
+  return vscode.workspace.getConfiguration().get<string>("mermaidlens.preset", "none");
+}
+
+function getDiagramOnHoverSetting(): boolean {
+  return vscode.workspace.getConfiguration().get<boolean>("mermaidlens.diagramOnHover", false);
 }
 
 export function activate(context: vscode.ExtensionContext): unknown {
@@ -65,7 +69,11 @@ export function activate(context: vscode.ExtensionContext): unknown {
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration("mermaidlens.theme") || event.affectsConfiguration("mermaidlens.preset")) {
+      if (
+        event.affectsConfiguration("mermaidlens.theme") ||
+        event.affectsConfiguration("mermaidlens.preset") ||
+        event.affectsConfiguration("mermaidlens.diagramOnHover")
+      ) {
         void vscode.commands.executeCommand("markdown.preview.refresh");
       }
     })
@@ -75,7 +83,8 @@ export function activate(context: vscode.ExtensionContext): unknown {
     extendMarkdownIt(md: import("markdown-it")) {
       markdownPlugin(md, {
         getThemeId: getThemeSetting,
-        getPresetId: getPresetSetting
+        getPresetId: getPresetSetting,
+        getDiagramOnHover: getDiagramOnHoverSetting
       });
       return md;
     }
