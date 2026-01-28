@@ -6,6 +6,7 @@ on:
 
 jobs:
   publish-vscode-marketplace:
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -21,7 +22,8 @@ jobs:
       - name: Get version from tag
         id: tag
         run: |
-          v="${GITHUB_REF#refs/tags/v}"
+          raw="${{ github.event.release.tag_name }}"
+          v="${raw#v}"
           echo "version=$v" >> $GITHUB_OUTPUT
 
       - name: Update extension version
