@@ -23,17 +23,35 @@ export function loadThemes(basePath: string): MermaidTheme[] {
     return themes;
   }
 
-  const entries = fs.readdirSync(themeRoot, { withFileTypes: true });
-  themes = entries
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => path.join(themeRoot, entry.name, "theme.json"))
-    .filter((themePath) => fs.existsSync(themePath))
-    .map((themePath) => {
-      const raw = fs.readFileSync(themePath, "utf-8");
-      return JSON.parse(raw) as MermaidTheme;
-    });
+  try {
+    const entries = fs.readdirSync(themeRoot, { withFileTypes: true });
+    themes = entries
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => path.join(themeRoot, entry.name, "theme.json"))
+      .filter((themePath) => fs.existsSync(themePath))
+      .map((themePath) => {
+        try {
+          const raw = fs.readFileSync(themePath, "utf-8");
+          const theme = JSON.parse(raw) as MermaidTheme;
+          // Validação básica
+          if (!theme.id || !theme.mermaid) {
+            console.warn(`[MermaidLens] Theme em ${themePath} está inválido: falta 'id' ou 'mermaid'`);
+            return null;
+          }
+          return theme;
+        } catch (error) {
+          console.error(`[MermaidLens] Erro ao carregar tema de ${themePath}:`, error);
+          return null;
+        }
+      })
+      .filter((theme): theme is MermaidTheme => theme !== null);
 
-  return themes;
+    return themes;
+  } catch (error) {
+    console.error(`[MermaidLens] Erro ao ler diretório de temas ${themeRoot}:`, error);
+    themes = [];
+    return themes;
+  }
 }
 
 export function getThemeById(id: string): MermaidTheme | undefined {

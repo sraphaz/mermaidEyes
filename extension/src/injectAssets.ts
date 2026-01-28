@@ -12,36 +12,74 @@ export function injectAssets(theme?: MermaidTheme): string {
     themeVariables: mermaidConfig.themeVariables
   });
 
+  // Escapa o JSON para uso seguro em atributo HTML
+  const escapedConfig = configJson
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+  // Extrai cores do tema para usar no CSS
+  const bgColor = mermaidConfig.themeVariables?.background || mermaidConfig.themeVariables?.mainBkgColor || "#0A1929";
+  const textColor = mermaidConfig.themeVariables?.textColor || "#E8F4F8";
+  const primaryColor = mermaidConfig.themeVariables?.primaryColor || "#2E86AB";
+  
+  // Calcula cor de sombra baseada na cor primária
+  const shadowColor = primaryColor + "40"; // Adiciona transparência
+  
   return `
 <style>
 .mermaidlens-diagram {
-  background: #001F3F;
+  background: ${bgColor};
   border-radius: 12px;
   padding: 16px;
   margin: 12px 0;
-  box-shadow: 0 0 12px rgba(0, 207, 255, 0.25);
+  box-shadow: 0 4px 16px ${shadowColor};
+  border: 1px solid ${primaryColor}33;
 }
 .mermaidlens-diagram .mermaid {
-  color: #E0F7FF;
+  color: ${textColor};
+  background: transparent;
+}
+/* Garante contraste para textos dentro dos diagramas */
+.mermaidlens-diagram svg text {
+  fill: ${textColor} !important;
+}
+.mermaidlens-diagram svg .label text {
+  fill: ${textColor} !important;
+}
+/* Melhora legibilidade de elementos específicos */
+.mermaidlens-diagram svg .nodeLabel,
+.mermaidlens-diagram svg .edgeLabel,
+.mermaidlens-diagram svg .cluster-label {
+  color: ${textColor} !important;
+}
+.mermaidlens-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: ${primaryColor};
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+.mermaidlens-error {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.mermaidlens-empty .mermaidlens-error {
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.1);
+  border-color: rgba(148, 163, 184, 0.2);
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-<script>
-(() => {
-  const config = ${configJson};
-  const initMermaid = () => {
-    if (!window.mermaid) {
-      return;
-    }
-    window.mermaid.initialize(config);
-    window.mermaid.run({ querySelector: '.mermaidlens-diagram .mermaid' });
-  };
-  if (document.readyState === 'complete') {
-    initMermaid();
-  } else {
-    window.addEventListener('load', initMermaid);
-  }
-})();
-</script>
+<div data-mermaidlens-config="${escapedConfig}" style="display: none;"></div>
 `;
 }

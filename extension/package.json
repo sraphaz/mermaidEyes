@@ -11,16 +11,26 @@
     "Other"
   ],
   "activationEvents": [
+    "onStartupFinished",
     "onLanguage:markdown",
-    "onCommand:mermaidlens.refresh"
+    "onCommand:mermaidlens.refresh",
+    "onCommand:mermaidlens.showWelcome"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "markdown.markdownItPlugins": true,
+    "markdown.previewScripts": [
+      "./media/mermaid-init.js"
+    ],
     "commands": [
       {
         "command": "mermaidlens.refresh",
         "title": "MermaidLens: Refresh Preview"
+      },
+      {
+        "command": "mermaidlens.showWelcome",
+        "title": "MermaidLens: Show Welcome Page",
+        "category": "MermaidLens"
       }
     ],
     "configuration": {

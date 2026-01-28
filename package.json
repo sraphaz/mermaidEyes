@@ -7,8 +7,9 @@
     "extension"
   ],
   "scripts": {
-    "build": "tsc -b",
-    "clean": "rimraf extension/dist packages/**/dist coverage",
+    "build": "tsc -b && node scripts/copy-assets.js",
+    "build:extension": "cd extension && npm run build",
+    "clean": "rimraf extension/dist packages/**/dist coverage extension/packages",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },

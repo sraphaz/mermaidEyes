@@ -6,6 +6,7 @@ node_modules/
 **/*.tsbuildinfo
 out/
 *.vsix
+extension/packages/
 
 # Coverage & test
 coverage/
