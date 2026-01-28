@@ -2,6 +2,12 @@
   "name": "mermaidlens",
   "private": true,
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sraphaz/mermaidLens.git"
+  },
+  "bugs": "https://github.com/sraphaz/mermaidLens/issues",
+  "homepage": "https://github.com/sraphaz/mermaidLens#readme",
   "workspaces": [
     "packages/*",
     "extension"

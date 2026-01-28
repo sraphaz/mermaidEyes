@@ -121,7 +121,7 @@ You can change:
 ## 📚 Learn More
 
 - 📘 [Mermaid Documentation](https://mermaid.js.org/)
-- 🐙 [MermaidLens Repository](https://github.com/)
+- 🐙 [MermaidLens Repository](https://github.com/sraphaz/mermaidLens)
 
 ---
 
