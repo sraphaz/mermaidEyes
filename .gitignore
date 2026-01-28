@@ -6,7 +6,6 @@ node_modules/
 **/*.tsbuildinfo
 out/
 *.vsix
-extension/packages/
 
 # Coverage & test
 coverage/
@@ -29,3 +28,6 @@ npm-debug.log*
 .env
 .env.local
 .env.*.local
+
+# Release notes (usado só por gh release create)
+release-notes-*.md
