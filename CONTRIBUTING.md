@@ -18,4 +18,5 @@ Thanks for wanting to contribute! This repo is designed for easy community exten
 ## Code contributions
 
 - Follow existing TypeScript style.
-- Run `pnpm build` before opening a PR.
+- Run `npm run build` and `npm test` before opening a PR.
+- O workflow de release só publica no Marketplace se todos os testes passarem (verde).

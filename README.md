@@ -8,9 +8,12 @@ The extension icon (`extension/media/icone.png`) is used in the **VS Code Market
 
 ## Features
 
-- ✅ Inline Mermaid diagrams inside Markdown Preview.
-- ✅ Optional **diagram on hover** (toggle): placeholder "View diagram" → hover shows the diagram.
-- ✅ Ocean theme by default; extensible themes (`packages/themes/*`) and presets (`packages/presets/*`).
+- ✅ **Inline Mermaid diagrams** inside Markdown Preview, with theme colors (Ocean, Coral Reef, etc.).
+- ✅ **Hover no editor:** ao passar o mouse sobre um bloco Mermaid no Markdown, aparece uma caixa com o diagrama renderizado (cores do tema) e link para abrir o preview.
+- ✅ **View with MermaidLens:** comando para abrir o preview ao lado do arquivo ativo (menu do editor, barra de título ou botão direito no explorador em arquivos `.md`).
+- ✅ **Primeira instalação:** na primeira vez após instalar, a extensão abre a página de boas-vindas e o preview ao lado automaticamente.
+- ✅ **Diagram on hover (preview):** opção `mermaidlens.diagramOnHover` — placeholder "View diagram" → hover ou clique mostra o diagrama no preview.
+- ✅ **Temas e presets:** Ocean por padrão; temas em `packages/themes/*` e presets em `packages/presets/*`.
 
 ## Getting started
 
@@ -55,8 +58,12 @@ Set these in your VS Code/Cursor settings:
 ## Publishing
 
 - **VSIX:** `npm run package:vsix` (requires Node 20+). Output: `extension/mermaidlens-extension-<version>.vsix`.
-- **CI/CD:** Push to `main` runs CI (build, test, package). Creating a **GitHub Release** (e.g. `v0.2.1`) runs the Release workflow: it builds, packages, uploads the VSIX to the release, and **publishes to the VS Code Marketplace** if the `VS_MARKETPLACE_TOKEN` secret is set.
-- **Marketplace token:** Create a [Personal Access Token](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token) (Azure DevOps) for the Marketplace, add it as repository secret `VS_MARKETPLACE_TOKEN`, then publish a release. Without it, the workflow still uploads the VSIX to the release and as an artifact.
+- **Publicar localmente:** defina `VS_MARKETPLACE_TOKEN` (ambiente ou `.env`) e rode `npm run publish:marketplace` (faz build, empacota e publica no Marketplace).
+- **Release automático (CI/CD):**
+  - Ao fazer **push em `master`** com alteração de versão em `extension/package.json` (ou `package.json`), o workflow **Tag on version bump** cria e envia a tag `vX.Y.Z`.
+  - O **push da tag** dispara o workflow **Release**: roda os testes; se passarem, faz build, empacota, publica no Marketplace (usando o secret `VS_MARKETPLACE_TOKEN`) e anexa o VSIX à release no GitHub.
+  - Ou crie uma **GitHub Release** manualmente (tag `v0.x.x`) ou use **Actions → Release → Run workflow** com o tag desejado.
+- **Token do Marketplace:** crie um [Personal Access Token](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token) (Azure DevOps), adicione como secret do repositório `VS_MARKETPLACE_TOKEN`. Sem o token, o workflow ainda gera e anexa o VSIX à release.
 
 ## Troubleshooting
 
