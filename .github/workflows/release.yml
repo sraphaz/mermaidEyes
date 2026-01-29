@@ -1,6 +1,9 @@
 name: Release
 
 on:
+  push:
+    tags:
+      - "v*"
   release:
     types: [published]
   workflow_dispatch:
@@ -18,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || (github.event_name == 'push' && github.ref) || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,7 +32,13 @@ jobs:
       - name: Get version from tag
         id: tag
         run: |
-          raw="${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.event.release.tag_name }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            raw="${{ github.event.inputs.tag }}"
+          elif [ "${{ github.event_name }}" = "release" ]; then
+            raw="${{ github.event.release.tag_name }}"
+          else
+            raw="${{ github.ref_name }}"
+          fi
           v="${raw#v}"
           echo "version=$v" >> $GITHUB_OUTPUT
           echo "tag=$raw" >> $GITHUB_OUTPUT
@@ -46,6 +55,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Run tests
+        run: npm run test
 
       - name: Build
         run: npm run build
@@ -66,10 +78,18 @@ jobs:
           extensionFile: extension/mermaidlens-extension-${{ steps.tag.outputs.version }}.vsix
           skipDuplicate: true
 
+      - name: Create GitHub Release (se não existir)
+        if: github.event_name == 'push'
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          gh release create "$TAG" --title "$TAG" --generate-notes --repo "${{ github.repository }}" || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload VSIX to release
         run: |
-          rt="${{ github.event_name == 'workflow_dispatch' && steps.tag.outputs.tag || github.ref_name }}"
-          gh release upload "$rt" "extension/mermaidlens-extension-${{ steps.tag.outputs.version }}.vsix" --repo "${{ github.repository }}"
+          TAG="${{ steps.tag.outputs.tag }}"
+          gh release upload "$TAG" "extension/mermaidlens-extension-${{ steps.tag.outputs.version }}.vsix" --repo "${{ github.repository }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -1,22 +1,36 @@
 import path from "path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const openTextDocument = vi.fn();
-const showTextDocument = vi.fn();
+const { openTextDocument, showTextDocument, showErrorMessage, showInformationMessage, executeCommand } = vi.hoisted(() => ({
+  openTextDocument: vi.fn(),
+  showTextDocument: vi.fn(),
+  showErrorMessage: vi.fn(),
+  showInformationMessage: vi.fn().mockResolvedValue(undefined),
+  executeCommand: vi.fn().mockResolvedValue(undefined),
+}));
 
 vi.mock("vscode", () => ({
   workspace: {
-    openTextDocument
+    openTextDocument,
   },
   window: {
-    showTextDocument
+    showTextDocument,
+    showErrorMessage,
+    showInformationMessage,
+  },
+  commands: {
+    executeCommand,
   },
   Uri: {
-    file: (value: string) => ({ fsPath: value })
+    file: (value: string) => ({ fsPath: value }),
   },
   ViewColumn: {
-    One: 1
-  }
+    One: 1,
+  },
+}));
+
+vi.mock("fs", () => ({
+  existsSync: vi.fn().mockReturnValue(true),
 }));
 
 import { showWelcomePage } from "../features/welcome";
