@@ -19,19 +19,18 @@ function getDiagramOnHoverSetting(): boolean {
 }
 
 export function activate(context: vscode.ExtensionContext): unknown {
-  // Em desenvolvimento: usa packages/ do monorepo
-  // Em produção: usa packages/ dentro da extensão (se copiados durante build)
+  // Produção: packages/ dentro da extensão (copiados no build por copy-assets.js)
+  const prodThemeRoot = path.join(context.extensionPath, "packages", "themes");
+  const prodPresetRoot = path.join(context.extensionPath, "packages", "presets");
+  // Desenvolvimento: só usa repo se existir nosso tema ocean (evita usar .vscode/extensions/packages por engano)
   const repoRoot = path.resolve(context.extensionPath, "..");
   const devThemeRoot = path.join(repoRoot, "packages", "themes");
   const devPresetRoot = path.join(repoRoot, "packages", "presets");
-  
-  // Tenta primeiro o caminho de desenvolvimento, depois o caminho de produção
-  const themeRoot = fs.existsSync(devThemeRoot) 
-    ? devThemeRoot 
-    : path.join(context.extensionPath, "packages", "themes");
-  const presetRoot = fs.existsSync(devPresetRoot)
-    ? devPresetRoot
-    : path.join(context.extensionPath, "packages", "presets");
+  const hasDevThemes = fs.existsSync(path.join(devThemeRoot, "ocean", "theme.json"));
+  const hasDevPresets = fs.existsSync(path.join(devPresetRoot, "none", "preset.json"));
+
+  const themeRoot = hasDevThemes ? devThemeRoot : prodThemeRoot;
+  const presetRoot = hasDevPresets ? devPresetRoot : prodPresetRoot;
 
   const loadedThemes = loadThemes(themeRoot);
   const loadedPresets = loadPresets(presetRoot);

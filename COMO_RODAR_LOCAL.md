@@ -22,11 +22,15 @@ Isso acontece quando a pasta `extension/dist` não existe — a extensão ainda 
 
 ## Como rodar agora
 
-### 1. Instalar dependências (se ainda não fez)
+### 1. Instalar dependências (obrigatório)
+
+Na **raiz do projeto**:
 
 ```bash
 npm install
 ```
+
+Isso cria o link do workspace para `@mermaideyes/core`; sem isso o `npm run build` falha com "Cannot find module '@mermaideyes/core'".
 
 ### 2. Compilar
 

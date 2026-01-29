@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.9] - 2026-01-29
+
+### Fixed
+
+- **Production (installed extension):** Theme and preset paths now correctly use the extension bundle (`packages/themes`, `packages/presets`) instead of mistakenly using `.vscode/extensions/packages/`. Fixes hover and View MermaidEyes when the extension is installed from the Marketplace or VSIX.
+
+### Added
+
+- Release workflow: verify README/CHANGELOG before packaging and check README inside VSIX (Marketplace overview).
+- Extension `package.json`: explicit `readme` field for Marketplace overview.
+- COMO_RODAR_LOCAL: note that `npm install` is required before build (fixes local "Cannot find module '@mermaideyes/core'").
+
+### Changed
+
+- Welcome page: logo image with centered layout and clip-path styling; fixed `alt` attribute typo.
+
 ## [0.2.8] - 2026-01-29
 
 ### Added
@@ -59,7 +75,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Initial release flow and documentation.
 
-[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.8...HEAD
+[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.9...HEAD
+[0.2.9]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.8...v0.2.9
 [0.2.8]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.7...v0.2.8
 [0.2.7]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.5...v0.2.6

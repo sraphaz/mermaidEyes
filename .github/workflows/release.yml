@@ -78,12 +78,18 @@ jobs:
       - name: Prepack for vsce
         run: npx rimraf extension/node_modules && node scripts/prepack-for-vsce.mjs
 
+      - name: Verify README and CHANGELOG for Marketplace overview
+        run: |
+          test -f extension/README.md || (echo "::error::extension/README.md missing" && exit 1)
+          test -f extension/CHANGELOG.md || (echo "::warning::extension/CHANGELOG.md missing" && true)
+          echo "README.md ($(wc -c < extension/README.md) bytes) and CHANGELOG.md present for Marketplace overview."
+
       - name: Package VSIX
         run: cd extension && npx @vscode/vsce package --no-dependencies
         env:
           VSCE_SKIP_DEPENDENCY_CHECK: 1
 
-      - name: Verify VSIX file exists
+      - name: Verify VSIX file exists and contains README (Marketplace overview)
         run: |
           VERSION="${{ steps.tag.outputs.version }}"
           VSIX="extension/mermaideyes-extension-${VERSION}.vsix"
@@ -93,6 +99,12 @@ jobs:
             exit 1
           fi
           echo "VSIX gerado: $VSIX ($(du -h "$VSIX" | cut -f1))"
+          if unzip -l "$VSIX" | grep -q "README.md"; then
+            echo "README.md is inside VSIX (Marketplace will use it as overview)."
+          else
+            echo "::warning::README.md not found inside VSIX - Marketplace may show 'No overview'."
+            unzip -l "$VSIX" | head -30
+          fi
 
       - name: Publish to VS Marketplace
         uses: HaaLeo/publish-vscode-extension@v2

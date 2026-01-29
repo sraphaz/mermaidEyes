@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./icone.png" width="96" alt="MermaidEyes logo" />
+  <img src="./icone.png" style="width: 500px; height: 193px; object-fit: cover; object-position: center; clip-path: inset(0 0 50px 0);" alt="MermaidEyes logo" />
 </p>
 
 # 🌊 MermaidEyes
