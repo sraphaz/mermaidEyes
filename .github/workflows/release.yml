@@ -43,6 +43,19 @@ jobs:
           echo "version=$v" >> $GITHUB_OUTPUT
           echo "tag=$raw" >> $GITHUB_OUTPUT
 
+      - name: Create GitHub Release (se não existir)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          if ! gh release view "$TAG" --repo "${{ github.repository }}" 2>/dev/null; then
+            gh release create "$TAG" --title "$TAG" --generate-notes --repo "${{ github.repository }}"
+            echo "Release $TAG criada."
+          else
+            echo "Release $TAG já existe."
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update extension version
         env:
           VERSION: ${{ steps.tag.outputs.version }}
@@ -88,16 +101,6 @@ jobs:
           registryUrl: https://marketplace.visualstudio.com
           extensionFile: extension/mermaidlens-extension-${{ steps.tag.outputs.version }}.vsix
           skipDuplicate: true
-
-      - name: Create GitHub Release (se não existir)
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: |
-          TAG="${{ steps.tag.outputs.tag }}"
-          if ! gh release view "$TAG" --repo "${{ github.repository }}" 2>/dev/null; then
-            gh release create "$TAG" --title "$TAG" --generate-notes --repo "${{ github.repository }}"
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload VSIX to release
         run: |
