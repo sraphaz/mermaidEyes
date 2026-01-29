@@ -1,3 +1,5 @@
+# Roda em todo PR e push em master/main. Mesma ordem do Release (test → build).
+# Falhas aqui indicam que o release também falharia.
 name: CI
 
 on:
@@ -8,6 +10,7 @@ on:
 
 jobs:
   build-and-test:
+    name: Test and build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,11 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run tests
+        run: npm run test
+
       - name: Build
         run: npm run build
 
-      - name: Test
-        run: npm test
-
-      - name: Package VSIX (dry run)
+      - name: Package VSIX (smoke test)
         run: npm run package:vsix
+        env:
+          VSCE_SKIP_DEPENDENCY_CHECK: 1
