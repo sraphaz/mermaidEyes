@@ -51,6 +51,11 @@ Copiando presets...
 
 O **Launch Extension** já está configurado com `preLaunchTask: "npm: build"`, então o build roda antes de abrir a janela de desenvolvimento. Se o build falhar, a extensão não sobe e você verá o erro no terminal.
 
+### Comandos úteis na janela de desenvolvimento
+
+- **View with MermaidLens:** abra um arquivo `.md` e use o comando (barra de título do editor ou botão direito) para abrir o preview ao lado.
+- **Hover no editor:** passe o mouse sobre um bloco Mermaid no Markdown para ver o diagrama em uma caixa (com cores do tema) e um link para o preview.
+
 ### Se aparecerem 3 abas "Untitled" ao abrir o Extension Development Host
 
 A extensão **não abre** nenhum documento na ativação (isso é coberto por teste em `extension/src/__tests__/activation.test.ts`). As abas Untitled costumam vir da **restauração de sessão** do VS Code/Cursor (última janela com editores abertos).
