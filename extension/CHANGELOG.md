@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.18] - 2026-01-28
+
+### Removed
+
+- Output channel **MermaidEyes** and all debug logs (activation, hover). Errors in `activate()` are logged to console only.
+
 ## [0.2.17] - 2026-01-28
 
 ### Changed

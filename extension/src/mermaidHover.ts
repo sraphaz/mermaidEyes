@@ -86,30 +86,18 @@ function buildHoverBoxStyle(): string {
   ].join("; ");
 }
 
-export function registerMermaidHover(
-  _context: vscode.ExtensionContext,
-  output?: vscode.OutputChannel
-): vscode.Disposable {
-  const log = (msg: string) => output?.appendLine(`[hover] ${msg}`);
+export function registerMermaidHover(_context: vscode.ExtensionContext): vscode.Disposable {
   return vscode.languages.registerHoverProvider(
     { language: "markdown" },
     {
       provideHover(document, position) {
         const diagramOnHover = vscode.workspace.getConfiguration().get<boolean>("mermaideyes.diagramOnHover", true);
-        log(`request L${position.line + 1}:C${position.character} diagramOnHover=${diagramOnHover}`);
-        if (!diagramOnHover) {
-          log("return null (diagramOnHover off)");
-          return null;
-        }
+        if (!diagramOnHover) return null;
 
         const result = findMermaidBlockAt(document, position);
-        if (!result) {
-          log("return null (not inside mermaid block)");
-          return null;
-        }
+        if (!result) return null;
 
         const { code } = result;
-        log(`in block, code length=${code.length}, returning hover`);
         const c = getHoverBoxColors();
         const boxStyle = buildHoverBoxStyle();
         const esc = (s: string) => s.replace(/\\/g, "\\\\").replace(/"/g, "&quot;");

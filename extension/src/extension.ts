@@ -19,9 +19,6 @@ function getDiagramOnHoverSetting(): boolean {
 }
 
 export function activate(context: vscode.ExtensionContext): unknown {
-  const output = vscode.window.createOutputChannel("MermaidEyes");
-  output.appendLine("[MermaidEyes] activate() started");
-
   try {
     // Raiz da extensão a partir do código (dist/extension.js → __dirname = dist, raiz = ..)
     const extensionRoot = path.resolve(__dirname, "..");
@@ -35,31 +32,15 @@ export function activate(context: vscode.ExtensionContext): unknown {
     const themeRoot = hasDevThemes ? devThemeRoot : prodThemeRoot;
     const presetRoot = hasDevPresets ? devPresetRoot : prodPresetRoot;
 
-    output.appendLine(`extensionRoot: ${extensionRoot}`);
-    output.appendLine(`themeRoot: ${themeRoot} (exists: ${fs.existsSync(themeRoot)})`);
-    output.appendLine(`presetRoot: ${presetRoot} (exists: ${fs.existsSync(presetRoot)})`);
-
     const loadedThemes = loadThemes(themeRoot);
     const loadedPresets = loadPresets(presetRoot);
 
-    output.appendLine(`themes: ${loadedThemes.length}, presets: ${loadedPresets.length}`);
-
     if (loadedThemes.length === 0) {
-      output.appendLine(`[WARN] Nenhum tema carregado. Hover e preview podem falhar.`);
       console.warn(`[MermaidEyes] Nenhum tema carregado de ${themeRoot}`);
-    } else {
-      console.log(`[MermaidEyes] ${loadedThemes.length} tema(s) carregado(s)`);
     }
-
     if (loadedPresets.length === 0) {
-      output.appendLine(`[WARN] Nenhum preset carregado.`);
       console.warn(`[MermaidEyes] Nenhum preset carregado de ${presetRoot}`);
-    } else {
-      console.log(`[MermaidEyes] ${loadedPresets.length} preset(s) carregado(s)`);
     }
-
-    const welcomePath = path.join(extensionRoot, "media", "welcome.md");
-    output.appendLine(`welcome: ${welcomePath} (exists: ${fs.existsSync(welcomePath)})`);
 
     // Na primeira vez após instalar, abre a welcome + preview ao lado (uma única vez)
     const hasShownWelcome = context.globalState.get<boolean>("mermaideyes.hasShownWelcome");
@@ -120,7 +101,7 @@ export function activate(context: vscode.ExtensionContext): unknown {
       })
     );
 
-    context.subscriptions.push(registerMermaidHover(context, output));
+    context.subscriptions.push(registerMermaidHover(context));
 
     context.subscriptions.push(
       vscode.workspace.onDidChangeConfiguration((event) => {
@@ -136,8 +117,6 @@ export function activate(context: vscode.ExtensionContext): unknown {
 
     // Preview sempre mostra diagrama renderizado (sem placeholder). O toggle diagramOnHover
     // é só para uso futuro no editor/código, não no preview.
-    output.appendLine("[MermaidEyes] activate() completed");
-    output.show(true);
     return {
       extendMarkdownIt(md: import("markdown-it")) {
         markdownPlugin(md, {
@@ -149,9 +128,7 @@ export function activate(context: vscode.ExtensionContext): unknown {
       }
     };
   } catch (e) {
-    const err = e instanceof Error ? e.message : String(e);
-    output.appendLine(`[MermaidEyes] ERROR in activate(): ${err}`);
-    output.show(true);
+    console.error("[MermaidEyes] activate():", e);
     throw e;
   }
 }
