@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.13] - 2026-01-28
+
+### Fixed
+
+- Output channel **MermaidEyes** now shows activation logs (extensionRoot, themeRoot, presetRoot, themes/presets count, welcome path). Panel is shown after activation so logs are visible.
+
 ## [0.2.12] - 2026-01-29
 
 ### Changed
