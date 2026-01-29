@@ -2,7 +2,7 @@
   "name": "mermaidlens-extension",
   "displayName": "MermaidLens",
   "description": "Inline Mermaid diagrams for Markdown preview with themes and presets.",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "publisher": "mermaidlens",
   "license": "MIT",
   "repository": {
