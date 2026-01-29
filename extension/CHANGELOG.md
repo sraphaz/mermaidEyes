@@ -1,10 +1,28 @@
-# Change Log
+ como o edit diagram aparece e funciona?
+ # Change Log
 
 All notable changes to MermaidEyes are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
+
+## [0.2.17] - 2026-01-28
+
+### Changed
+
+- Version bump for release (bundled extension from 0.2.16).
+
+## [0.2.16] - 2026-01-28
+
+### Added
+
+- **Bundling:** Extension is now built with esbuild into a single `extension.js` that includes `@mermaideyes/core`. The installed extension no longer depends on `node_modules/@mermaideyes/core` at runtime, so it loads reliably when installed from Marketplace or VSIX (fixes activation/output/hover when installed).
+
+### Changed
+
+- **activationEvents:** Removed `*` and redundant `onCommand:*` entries; kept only `onStartupFinished` and `onLanguage:markdown`. VS Code 1.74+ auto-activates for contributed commands. Fixes package.json warnings (star-activation, redundant events).
+- **Build:** Root build runs `tsc` for `packages/core` only, then `scripts/bundle-extension.mjs` (esbuild) for the extension, then `copy-assets.js`. Prepack no longer copies `@mermaideyes/core` into the VSIX.
 
 ## [0.2.15] - 2026-01-28
 

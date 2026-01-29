@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Prepares extension folder for vsce package (monorepo).
- * Copies only extension deps from root node_modules, then @mermaideyes/core from packages/core.
+ * Extension host code is bundled (extension/dist/extension.js includes @mermaideyes/core).
+ * Copies only markdown-it etc. from root node_modules if needed for vsce; extension runtime uses the bundle only.
  */
 import fs from "fs";
 import path from "path";
@@ -11,11 +12,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const extNodeModules = path.join(root, "extension", "node_modules");
 const rootNodeModules = path.join(root, "node_modules");
-const corePackage = path.join(root, "packages", "core");
-const coreDest = path.join(extNodeModules, "@mermaideyes", "core");
 
-const EXT_DEPS = ["@mermaideyes", "markdown-it", "mdurl", "uc.micro", "entities", "linkify-it", "punycode.js"];
-const SKIP_COPY = new Set(["@mermaideyes", "mermaideyes", "mermaideyes-extension"]);
+const EXT_DEPS = ["markdown-it", "mdurl", "uc.micro", "entities", "linkify-it", "punycode.js"];
 
 function copyRecursive(src, dest, skipDir) {
   if (!fs.existsSync(src)) return;
@@ -30,31 +28,15 @@ function copyRecursive(src, dest, skipDir) {
   }
 }
 
-function rmRecursive(dir) {
-  if (!fs.existsSync(dir)) return;
-  for (const name of fs.readdirSync(dir)) {
-    const p = path.join(dir, name);
-    const stat = fs.lstatSync(p);
-    if (stat.isDirectory() && !stat.isSymbolicLink()) rmRecursive(p);
-    else fs.unlinkSync(p);
-  }
-  fs.rmdirSync(dir);
-}
-
 fs.mkdirSync(extNodeModules, { recursive: true });
 
-console.log("[prepack] Copying extension deps (skip @mermaideyes, mermaideyes-extension)...");
+console.log("[prepack] Copying optional deps (extension runtime uses bundle only)...");
 for (const dep of EXT_DEPS) {
-  if (SKIP_COPY.has(dep)) continue;
   const src = path.join(rootNodeModules, dep);
   if (!fs.existsSync(src)) continue;
   const dest = path.join(extNodeModules, dep);
   copyRecursive(src, dest, null);
   console.log("[prepack]   ", dep);
 }
-
-console.log("[prepack] Adding @mermaideyes/core from packages/core...");
-fs.mkdirSync(path.join(extNodeModules, "@mermaideyes"), { recursive: true });
-copyRecursive(corePackage, coreDest, null);
 
 console.log("[prepack] Done.");

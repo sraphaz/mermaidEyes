@@ -1,7 +1,7 @@
 {
   "name": "mermaideyes",
   "private": true,
-  "version": "0.2.15",
+  "version": "0.2.17",
   "repository": {
     "type": "git",
     "url": "https://github.com/sraphaz/mermaidEyes.git"
@@ -13,7 +13,7 @@
     "extension"
   ],
   "scripts": {
-    "build": "tsc -b && node scripts/copy-assets.js",
+    "build": "tsc -p packages/core/tsconfig.json && node scripts/bundle-extension.mjs && node scripts/copy-assets.js",
     "build:extension": "cd extension && npm run build",
     "clean": "rimraf extension/dist packages/core/dist coverage extension/packages extension/node_modules",
     "test": "vitest run",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
+    "esbuild": "^0.24.0",
     "@vscode/vsce": "^3.2.1",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5",
