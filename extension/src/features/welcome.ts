@@ -7,9 +7,9 @@ let welcomeOpening = false;
 export async function showWelcomePage(context: vscode.ExtensionContext, forceShow = false): Promise<void> {
   if (welcomeOpening) return;
   if (!forceShow) {
-    const hasShown = context.globalState.get<boolean>("mermaidlens.hasShownWelcome");
+    const hasShown = context.globalState.get<boolean>("mermaideyes.hasShownWelcome");
     if (hasShown) {
-      console.log("[MermaidLens] Página de boas-vindas já foi mostrada. Use o comando 'MermaidLens: Show Welcome Page' para reabrir.");
+      console.log("[MermaidEyes] Página de boas-vindas já foi mostrada. Use o comando 'MermaidEyes: Show Welcome Page' para reabrir.");
       return;
     }
   }
@@ -19,14 +19,14 @@ export async function showWelcomePage(context: vscode.ExtensionContext, forceSho
   const welcomeUri = vscode.Uri.file(welcomePath);
   
   if (!fs.existsSync(welcomePath)) {
-    const errorMsg = `[MermaidLens] Arquivo de boas-vindas não encontrado: ${welcomePath}`;
+    const errorMsg = `[MermaidEyes] Arquivo de boas-vindas não encontrado: ${welcomePath}`;
     console.error(errorMsg);
-    vscode.window.showErrorMessage(`MermaidLens: ${errorMsg}`);
+    vscode.window.showErrorMessage(`MermaidEyes: ${errorMsg}`);
     return;
   }
   
   try {
-    console.log(`[MermaidLens] Abrindo página de boas-vindas: ${welcomePath}`);
+    console.log(`[MermaidEyes] Abrindo página de boas-vindas: ${welcomePath}`);
     const doc = await vscode.workspace.openTextDocument(welcomeUri);
 
     // 1) Abrir o documento no editor (preview: false para não reutilizar aba como "preview")
@@ -39,11 +39,11 @@ export async function showWelcomePage(context: vscode.ExtensionContext, forceSho
     // 2) Abrir o preview ao lado uma única vez (evita abas/untitled extras)
     try {
       await vscode.commands.executeCommand("markdown.showPreviewToSide");
-      console.log("[MermaidLens] Preview aberto ao lado.");
+      console.log("[MermaidEyes] Preview aberto ao lado.");
     } catch (e) {
-      console.warn("[MermaidLens] markdown.showPreviewToSide falhou:", e);
+      console.warn("[MermaidEyes] markdown.showPreviewToSide falhou:", e);
       void vscode.window.showInformationMessage(
-        "MermaidLens: Pressione Ctrl+Shift+V para abrir o preview.",
+        "MermaidEyes: Pressione Ctrl+Shift+V para abrir o preview.",
         "Abrir Preview"
       ).then((selection) => {
         if (selection === "Abrir Preview") {
@@ -53,12 +53,12 @@ export async function showWelcomePage(context: vscode.ExtensionContext, forceSho
     }
 
     if (!forceShow) {
-      await context.globalState.update("mermaidlens.hasShownWelcome", true);
+      await context.globalState.update("mermaideyes.hasShownWelcome", true);
     }
   } catch (error) {
     const errorMsg = `Erro ao abrir página de boas-vindas: ${error}`;
-    console.error(`[MermaidLens] ${errorMsg}`, error);
-    vscode.window.showErrorMessage(`MermaidLens: ${errorMsg}`);
+    console.error(`[MermaidEyes] ${errorMsg}`, error);
+    vscode.window.showErrorMessage(`MermaidEyes: ${errorMsg}`);
   } finally {
     welcomeOpening = false;
   }

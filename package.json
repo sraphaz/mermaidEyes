@@ -1,13 +1,13 @@
 {
-  "name": "mermaidlens",
+  "name": "mermaideyes",
   "private": true,
-  "version": "0.2.4",
+  "version": "0.2.5",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sraphaz/mermaidLens.git"
+    "url": "https://github.com/sraphaz/mermaidEyes.git"
   },
-  "bugs": "https://github.com/sraphaz/mermaidLens/issues",
-  "homepage": "https://github.com/sraphaz/mermaidLens#readme",
+  "bugs": "https://github.com/sraphaz/mermaidEyes/issues",
+  "homepage": "https://github.com/sraphaz/mermaidEyes#readme",
   "workspaces": [
     "packages/*",
     "extension"

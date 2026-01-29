@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Prepares extension folder for vsce package (monorepo).
- * Copies only extension deps from root node_modules, then @mermaidlens/core from packages/core.
+ * Copies only extension deps from root node_modules, then @mermaideyes/core from packages/core.
  */
 import fs from "fs";
 import path from "path";
@@ -12,10 +12,10 @@ const root = path.join(__dirname, "..");
 const extNodeModules = path.join(root, "extension", "node_modules");
 const rootNodeModules = path.join(root, "node_modules");
 const corePackage = path.join(root, "packages", "core");
-const coreDest = path.join(extNodeModules, "@mermaidlens", "core");
+const coreDest = path.join(extNodeModules, "@mermaideyes", "core");
 
-const EXT_DEPS = ["@mermaidlens", "markdown-it", "mdurl", "uc.micro", "entities", "linkify-it", "punycode.js"];
-const SKIP_COPY = new Set(["@mermaidlens", "mermaidlens", "mermaidlens-extension"]);
+const EXT_DEPS = ["@mermaideyes", "markdown-it", "mdurl", "uc.micro", "entities", "linkify-it", "punycode.js"];
+const SKIP_COPY = new Set(["@mermaideyes", "mermaideyes", "mermaideyes-extension"]);
 
 function copyRecursive(src, dest, skipDir) {
   if (!fs.existsSync(src)) return;
@@ -43,7 +43,7 @@ function rmRecursive(dir) {
 
 fs.mkdirSync(extNodeModules, { recursive: true });
 
-console.log("[prepack] Copying extension deps (skip @mermaidlens, mermaidlens-extension)...");
+console.log("[prepack] Copying extension deps (skip @mermaideyes, mermaideyes-extension)...");
 for (const dep of EXT_DEPS) {
   if (SKIP_COPY.has(dep)) continue;
   const src = path.join(rootNodeModules, dep);
@@ -53,8 +53,8 @@ for (const dep of EXT_DEPS) {
   console.log("[prepack]   ", dep);
 }
 
-console.log("[prepack] Adding @mermaidlens/core from packages/core...");
-fs.mkdirSync(path.join(extNodeModules, "@mermaidlens"), { recursive: true });
+console.log("[prepack] Adding @mermaideyes/core from packages/core...");
+fs.mkdirSync(path.join(extNodeModules, "@mermaideyes"), { recursive: true });
 copyRecursive(corePackage, coreDest, null);
 
 console.log("[prepack] Done.");

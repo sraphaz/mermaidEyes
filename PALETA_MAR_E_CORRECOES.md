@@ -107,8 +107,8 @@ Se o preview ainda não funcionar:
    - Veja se Mermaid está carregando
 
 3. **Verifique elementos**:
-   - Procure por `.mermaidlens-diagram` no DOM
-   - Verifique se `data-mermaidlens-config` existe
+   - Procure por `.mermaideyes-diagram` no DOM
+   - Verifique se `data-mermaideyes-config` existe
    - Veja se o script `mermaid-init.js` foi carregado
 
 4. **Teste manualmente**:

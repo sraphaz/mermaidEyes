@@ -1,16 +1,16 @@
 {
-  "name": "mermaidlens-extension",
-  "displayName": "MermaidLens",
+  "name": "mermaideyes-extension",
+  "displayName": "MermaidEyes",
   "description": "Inline Mermaid diagrams for Markdown preview with themes and presets.",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "publisher": "sraphaz",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sraphaz/mermaidLens.git"
+    "url": "https://github.com/sraphaz/mermaidEyes.git"
   },
-  "bugs": "https://github.com/sraphaz/mermaidLens/issues",
-  "homepage": "https://github.com/sraphaz/mermaidLens#readme",
+  "bugs": "https://github.com/sraphaz/mermaidEyes/issues",
+  "homepage": "https://github.com/sraphaz/mermaidEyes#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -21,10 +21,10 @@
   "activationEvents": [
     "onStartupFinished",
     "onLanguage:markdown",
-    "onCommand:mermaidlens.refresh",
-    "onCommand:mermaidlens.showWelcome",
-    "onCommand:mermaidlens.editDiagram",
-    "onCommand:mermaidlens.viewWithMermaidLens"
+    "onCommand:mermaideyes.refresh",
+    "onCommand:mermaideyes.showWelcome",
+    "onCommand:mermaideyes.editDiagram",
+    "onCommand:mermaideyes.viewWithMermaidEyes"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -35,62 +35,62 @@
     ],
     "commands": [
       {
-        "command": "mermaidlens.refresh",
-        "title": "MermaidLens: Refresh Preview"
+        "command": "mermaideyes.refresh",
+        "title": "MermaidEyes: Refresh Preview"
       },
       {
-        "command": "mermaidlens.showWelcome",
-        "title": "MermaidLens: Show Welcome Page",
-        "category": "MermaidLens"
+        "command": "mermaideyes.showWelcome",
+        "title": "MermaidEyes: Show Welcome Page",
+        "category": "MermaidEyes"
       },
       {
-        "command": "mermaidlens.editDiagram",
-        "title": "MermaidLens: Edit Diagram",
-        "category": "MermaidLens"
+        "command": "mermaideyes.editDiagram",
+        "title": "MermaidEyes: Edit Diagram",
+        "category": "MermaidEyes"
       },
       {
-        "command": "mermaidlens.viewWithMermaidLens",
-        "title": "View with MermaidLens",
-        "category": "MermaidLens"
+        "command": "mermaideyes.viewWithMermaidEyes",
+        "title": "View with MermaidEyes",
+        "category": "MermaidEyes"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "mermaidlens.viewWithMermaidLens",
+          "command": "mermaideyes.viewWithMermaidEyes",
           "when": "editorLangId == markdown",
           "group": "1_navigation"
         }
       ],
       "editor/context": [
         {
-          "command": "mermaidlens.viewWithMermaidLens",
+          "command": "mermaideyes.viewWithMermaidEyes",
           "when": "editorLangId == markdown",
           "group": "1_open"
         }
       ],
       "explorer/context": [
         {
-          "command": "mermaidlens.viewWithMermaidLens",
+          "command": "mermaideyes.viewWithMermaidEyes",
           "when": "resourceLangId == markdown",
           "group": "1_open"
         }
       ]
     },
     "configuration": {
-      "title": "MermaidLens",
+      "title": "MermaidEyes",
       "properties": {
-        "mermaidlens.theme": {
+        "mermaideyes.theme": {
           "type": "string",
           "default": "ocean",
           "description": "Theme id to use for Mermaid rendering."
         },
-        "mermaidlens.preset": {
+        "mermaideyes.preset": {
           "type": "string",
           "default": "none",
           "description": "Preset id to apply to Mermaid directives. Use 'none' to avoid init blocks that can cause 'No diagram type detected'."
         },
-        "mermaidlens.diagramOnHover": {
+        "mermaideyes.diagramOnHover": {
           "type": "boolean",
           "default": false,
           "description": "When enabled, show a 'View diagram' placeholder; hovering reveals the diagram. When false (default), diagrams are always shown inline and clickable to edit."
@@ -102,7 +102,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@mermaidlens/core": "0.1.0",
+    "@mermaideyes/core": "0.1.0",
     "markdown-it": "^14.1.0",
     "mermaid": "^11.0.0"
   },

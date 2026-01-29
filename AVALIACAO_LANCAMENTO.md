@@ -32,7 +32,7 @@
 ### 5. **Melhorias na Injeção de Assets**
 - **Problema**: Script Mermaid poderia ser inicializado múltiplas vezes.
 - **Solução**:
-  - Flag `window.mermaidlensInitialized` para evitar múltiplas inicializações
+  - Flag `window.mermaideyesInitialized` para evitar múltiplas inicializações
   - Melhor tratamento de estados do DOM (readyState)
   - Timeout para garantir que DOM está pronto
   - Tratamento de erros na inicialização do Mermaid
@@ -56,7 +56,7 @@ Antes de publicar, teste:
 - [ ] Verificar console para erros
 
 ### 2. **Configuração de Publicação**
-- [ ] Atualizar `publisher` em `extension/package.json` (atualmente "mermaidlens")
+- [ ] Atualizar `publisher` em `extension/package.json` (atualmente sraphaz)
 - [ ] Definir ícone da extensão (adicionar `icon` em `package.json`)
 - [ ] Adicionar `repository`, `bugs`, `homepage` em `package.json`
 - [ ] Criar `LICENSE` se ainda não existir

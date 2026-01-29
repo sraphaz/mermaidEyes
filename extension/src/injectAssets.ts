@@ -1,5 +1,5 @@
-import type { MermaidTheme } from "@mermaidlens/core";
-import { getThemeColors } from "@mermaidlens/core";
+import type { MermaidTheme } from "@mermaideyes/core";
+import { getThemeColors } from "@mermaideyes/core";
 
 export interface InjectAssetsOptions {
   diagramOnHover?: boolean;
@@ -35,7 +35,7 @@ export function injectAssets(theme?: MermaidTheme, opts?: InjectAssetsOptions): 
   return `
 <style>
 /* Container: cores do tema, tamanho legível, rolagem só quando muito alto */
-.mermaidlens-diagram {
+.mermaideyes-diagram {
   background: ${bgColor};
   color: ${textColor};
   border-radius: 12px;
@@ -48,33 +48,33 @@ export function injectAssets(theme?: MermaidTheme, opts?: InjectAssetsOptions): 
   overflow: auto;
   max-height: 80vh;
 }
-.mermaidlens-diagram .mermaid {
+.mermaideyes-diagram .mermaid {
   color: ${textColor};
   background: transparent;
 }
 /* SVG: não forçar tamanho para não distorcer; só limitar overflow e mínimo legível */
-.mermaidlens-diagram .mermaidlens-render {
+.mermaideyes-diagram .mermaideyes-render {
   min-width: 280px;
   max-width: 100%;
 }
-.mermaidlens-diagram svg {
+.mermaideyes-diagram svg {
   max-width: 100%;
   height: auto;
 }
 /* Garante contraste para textos dentro dos diagramas */
-.mermaidlens-diagram svg text {
+.mermaideyes-diagram svg text {
   fill: ${textColor} !important;
 }
-.mermaidlens-diagram svg .label text {
+.mermaideyes-diagram svg .label text {
   fill: ${textColor} !important;
 }
 /* Melhora legibilidade de elementos específicos */
-.mermaidlens-diagram svg .nodeLabel,
-.mermaidlens-diagram svg .edgeLabel,
-.mermaidlens-diagram svg .cluster-label {
+.mermaideyes-diagram svg .nodeLabel,
+.mermaideyes-diagram svg .edgeLabel,
+.mermaideyes-diagram svg .cluster-label {
   color: ${textColor} !important;
 }
-.mermaidlens-label {
+.mermaideyes-label {
   display: block;
   font-size: 0.75rem;
   font-weight: 600;
@@ -84,7 +84,7 @@ export function injectAssets(theme?: MermaidTheme, opts?: InjectAssetsOptions): 
   margin-bottom: 8px;
   opacity: 0.9;
 }
-.mermaidlens-error {
+.mermaideyes-error {
   margin: 0;
   padding: 12px 16px;
   font-size: 0.875rem;
@@ -93,13 +93,13 @@ export function injectAssets(theme?: MermaidTheme, opts?: InjectAssetsOptions): 
   border-radius: 8px;
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
-.mermaidlens-empty .mermaidlens-error {
+.mermaideyes-empty .mermaideyes-error {
   color: #94a3b8;
   background: rgba(148, 163, 184, 0.1);
   border-color: rgba(148, 163, 184, 0.2);
 }
-.mermaidlens-hover-mode .mermaidlens-label { display: none; }
-.mermaidlens-hover-mode .mermaidlens-placeholder {
+.mermaideyes-hover-mode .mermaideyes-label { display: none; }
+.mermaideyes-hover-mode .mermaideyes-placeholder {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -112,8 +112,8 @@ export function injectAssets(theme?: MermaidTheme, opts?: InjectAssetsOptions): 
   font-size: 0.875rem;
   font-weight: 500;
 }
-.mermaidlens-hover-mode .mermaidlens-placeholder:hover { opacity: 0.9; }
-.mermaidlens-hover-mode .mermaidlens-render {
+.mermaideyes-hover-mode .mermaideyes-placeholder:hover { opacity: 0.9; }
+.mermaideyes-hover-mode .mermaideyes-render {
   display: none;
   position: absolute;
   z-index: 100;
@@ -129,19 +129,19 @@ export function injectAssets(theme?: MermaidTheme, opts?: InjectAssetsOptions): 
   background: ${bgColor};
   border: 1px solid ${primaryColor}33;
 }
-.mermaidlens-hover-mode .mermaidlens-wrap { position: relative; min-height: 44px; }
-.mermaidlens-hover-mode .mermaidlens-wrap:hover .mermaidlens-render,
-.mermaidlens-hover-mode .mermaidlens-wrap.mermaidlens-reveal .mermaidlens-render { display: block; }
-.mermaidlens-edit-link {
+.mermaideyes-hover-mode .mermaideyes-wrap { position: relative; min-height: 44px; }
+.mermaideyes-hover-mode .mermaideyes-wrap:hover .mermaideyes-render,
+.mermaideyes-hover-mode .mermaideyes-wrap.mermaideyes-reveal .mermaideyes-render { display: block; }
+.mermaideyes-edit-link {
   display: block;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
   outline: none;
 }
-.mermaidlens-edit-link:hover .mermaidlens-diagram { opacity: 0.95; }
-.mermaidlens-edit-link:focus .mermaidlens-diagram { box-shadow: 0 0 0 2px ${primaryColor}88; }
+.mermaideyes-edit-link:hover .mermaideyes-diagram { opacity: 0.95; }
+.mermaideyes-edit-link:focus .mermaideyes-diagram { box-shadow: 0 0 0 2px ${primaryColor}88; }
 </style>
-<div data-mermaidlens-config="${escapedConfig}" style="display: none;"></div>
+<div data-mermaideyes-config="${escapedConfig}" style="display: none;"></div>
 `;
 }

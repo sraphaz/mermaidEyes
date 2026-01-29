@@ -27,7 +27,7 @@ O VS Code bloqueia scripts inline (`<script>`) no preview do Markdown por segura
 - Mantidos apenas estilos CSS e elemento de configuração
 
 ### 3. **Configuração via Data Attributes**
-- A configuração do tema é passada através de um elemento `<div>` com `data-mermaidlens-config`
+- A configuração do tema é passada através de um elemento `<div>` com `data-mermaideyes-config`
 - O script JavaScript lê essa configuração e aplica ao Mermaid
 - Escape seguro de JSON para evitar problemas de segurança
 

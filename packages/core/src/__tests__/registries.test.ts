@@ -7,14 +7,14 @@ import { getPresetById, loadPresets } from "../presetRegistry";
 
 describe("themeRegistry", () => {
   it("returns empty themes when directory missing", () => {
-    const missing = path.join(os.tmpdir(), `mermaidlens-missing-${Date.now()}`);
+    const missing = path.join(os.tmpdir(), `mermaideyes-missing-${Date.now()}`);
     expect(loadThemes(missing)).toEqual([]);
     expect(getThemeById("ocean")).toBeUndefined();
     expect(getDefaultTheme()).toBeUndefined();
   });
 
   it("loads themes and resolves default", () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mermaidlens-themes-"));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mermaideyes-themes-"));
     const oceanDir = path.join(dir, "ocean");
     const coralDir = path.join(dir, "coralreef");
     fs.mkdirSync(oceanDir);
@@ -46,13 +46,13 @@ describe("themeRegistry", () => {
 
 describe("presetRegistry", () => {
   it("returns empty presets when directory missing", () => {
-    const missing = path.join(os.tmpdir(), `mermaidlens-presets-${Date.now()}`);
+    const missing = path.join(os.tmpdir(), `mermaideyes-presets-${Date.now()}`);
     expect(loadPresets(missing)).toEqual([]);
     expect(getPresetById("architecture")).toBeUndefined();
   });
 
   it("loads presets", () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mermaidlens-presets-"));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mermaideyes-presets-"));
     const presetDir = path.join(dir, "architecture");
     fs.mkdirSync(presetDir);
     fs.writeFileSync(

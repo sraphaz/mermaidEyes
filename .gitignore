@@ -6,6 +6,7 @@ node_modules/
 **/*.tsbuildinfo
 out/
 *.vsix
+packages/vsix.zip
 extension/packages/
 extension/media/mermaid.min.js
 .vscode-test/

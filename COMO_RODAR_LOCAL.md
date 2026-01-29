@@ -1,9 +1,9 @@
-# Como rodar o MermaidLens localmente
+# Como rodar o MermaidEyes localmente
 
 ## Erro que você viu
 
 ```
-Activating extension 'mermaidlens.mermaidlens-extension' failed: 
+Activating extension 'sraphaz.mermaideyes-extension' failed: 
 Cannot find module '...\extension\dist\extension.js'
 ```
 
@@ -17,7 +17,7 @@ Isso acontece quando a pasta `extension/dist` não existe — a extensão ainda 
 
 2. **Build completo**  
    Com o core compilando de novo, `npm run build` passa a gerar:
-   - `packages/core/dist/` (pacote @mermaidlens/core)
+   - `packages/core/dist/` (pacote @mermaideyes/core)
    - `extension/dist/` (incluindo `extension.js`)
 
 ## Como rodar agora
@@ -53,7 +53,7 @@ O **Launch Extension** já está configurado com `preLaunchTask: "npm: build"`, 
 
 ### Comandos úteis na janela de desenvolvimento
 
-- **View with MermaidLens:** abra um arquivo `.md` e use o comando (barra de título do editor ou botão direito) para abrir o preview ao lado.
+- **View with MermaidEyes:** abra um arquivo `.md` e use o comando (barra de título do editor ou botão direito) para abrir o preview ao lado.
 - **Hover no editor:** passe o mouse sobre um bloco Mermaid no Markdown para ver o diagrama em uma caixa (com cores do tema) e um link para o preview.
 
 ### Se aparecerem 3 abas "Untitled" ao abrir o Extension Development Host

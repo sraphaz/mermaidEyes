@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="./icone.png" width="96" alt="MermaidLens logo" />
+  <img src="./icone.png" width="96" alt="MermaidEyes logo" />
 </p>
 
-# 🌊 MermaidLens
+# 🌊 MermaidEyes
 
-[![CI](https://github.com/sraphaz/mermaidLens/actions/workflows/ci.yml/badge.svg)](https://github.com/sraphaz/mermaidLens/actions/workflows/ci.yml)
-[![Release](https://github.com/sraphaz/mermaidLens/actions/workflows/release.yml/badge.svg)](https://github.com/sraphaz/mermaidLens/actions/workflows/release.yml)
-[![Releases](https://img.shields.io/github/v/release/sraphaz/mermaidLens)](https://github.com/sraphaz/mermaidLens/releases)
+[![CI](https://github.com/sraphaz/mermaidEyes/actions/workflows/ci.yml/badge.svg)](https://github.com/sraphaz/mermaidEyes/actions/workflows/ci.yml)
+[![Release](https://github.com/sraphaz/mermaidEyes/actions/workflows/release.yml/badge.svg)](https://github.com/sraphaz/mermaidEyes/actions/workflows/release.yml)
+[![Releases](https://img.shields.io/github/v/release/sraphaz/mermaidEyes)](https://github.com/sraphaz/mermaidEyes/releases)
 
-Welcome to **MermaidLens** — magical Mermaid diagrams rendered inline inside Markdown Preview!
+Welcome to **MermaidEyes** — magical Mermaid diagrams rendered inline inside Markdown Preview!
 
 **👉 [Abrir preview ao lado](command:markdown.showPreviewToSide)** — clique se o preview não abriu sozinho.
 
@@ -38,7 +38,7 @@ Or use the preview button in the editor toolbar.
 
 ### 3) See your diagrams come to life! ✨
 
-MermaidLens automatically renders your Mermaid code into beautiful, styled diagrams.
+MermaidEyes automatically renders your Mermaid code into beautiful, styled diagrams.
 
 **Two display modes:**
 
@@ -62,11 +62,11 @@ graph LR
 ```mermaid
 sequenceDiagram
   participant User
-  participant MermaidLens
+  participant MermaidEyes
   participant Preview
   
-  User->>MermaidLens: Write Mermaid code
-  MermaidLens->>Preview: Render diagram
+  User->>MermaidEyes: Write Mermaid code
+  MermaidEyes->>Preview: Render diagram
   Preview-->>User: Beautiful result!
 ```
 
@@ -98,7 +98,7 @@ pie title Features
 
 ## 🎨 Themes & Presets
 
-MermaidLens comes with beautiful themes and presets out of the box!
+MermaidEyes comes with beautiful themes and presets out of the box!
 
 ### Available Themes
 - **Ocean** (default) - Deep blue ocean vibes 🌊
@@ -110,36 +110,36 @@ MermaidLens comes with beautiful themes and presets out of the box!
 
 ### Change Settings
 
-- 👉 [Open MermaidLens Settings](command:workbench.action.openSettings?%22mermaidlens%22)
+- 👉 [Open MermaidEyes Settings](command:workbench.action.openSettings?%22mermaideyes%22)
 
 You can change:
-- `mermaidlens.theme` - Choose your theme
-- `mermaidlens.preset` - Choose your preset
-- `mermaidlens.diagramOnHover` - When **true**, diagrams are hidden behind a "View diagram" placeholder; **hover** over the placeholder to show the diagram. When **false** (default), diagrams are always shown inline.
+- `mermaideyes.theme` - Choose your theme
+- `mermaideyes.preset` - Choose your preset
+- `mermaideyes.diagramOnHover` - When **true**, diagrams are hidden behind a "View diagram" placeholder; **hover** over the placeholder to show the diagram. When **false** (default), diagrams are always shown inline.
 
 ---
 
 ## 💡 Tips
 
 1. **Refresh Preview**: Use `Ctrl+Shift+V` (or `Cmd+Shift+V` on Mac) to refresh the preview
-2. **Command Palette**: Press `Ctrl+Shift+P` and type "MermaidLens" to see all commands
-3. **Reopen Welcome**: Use the command "MermaidLens: Show Welcome Page" anytime
-4. **"View diagram" / hover**: If you see **View diagram** instead of a diagram, **hover** over the placeholder (move the mouse over it) to reveal the diagram. To always see diagrams inline on this page, turn off `mermaidlens.diagramOnHover` in settings.
+2. **Command Palette**: Press `Ctrl+Shift+P` and type "MermaidEyes" to see all commands
+3. **Reopen Welcome**: Use the command "MermaidEyes: Show Welcome Page" anytime
+4. **"View diagram" / hover**: If you see **View diagram** instead of a diagram, **hover** over the placeholder (move the mouse over it) to reveal the diagram. To always see diagrams inline on this page, turn off `mermaideyes.diagramOnHover` in settings.
 
 ---
 
 ## 🔧 CI & Release
 
-- **CI:** Runs on every push and pull request to `main`/`master` (build, test, package VSIX). See [Actions](https://github.com/sraphaz/mermaidLens/actions).
-- **Release:** Creating a [GitHub Release](https://github.com/sraphaz/mermaidLens/releases) (e.g. `v0.2.2`) triggers the release workflow: it builds the extension, packages the VSIX, uploads it to the release, and can publish to the VS Code Marketplace if `VS_MARKETPLACE_TOKEN` is configured.
-- **Install from VSIX:** Download the `.vsix` from the [Releases](https://github.com/sraphaz/mermaidLens/releases) page and install via **Extensions** → **...** → **Install from VSIX**.
+- **CI:** Runs on every push and pull request to `main`/`master` (build, test, package VSIX). See [Actions](https://github.com/sraphaz/mermaidEyes/actions).
+- **Release:** Creating a [GitHub Release](https://github.com/sraphaz/mermaidEyes/releases) (e.g. `v0.2.2`) triggers the release workflow: it builds the extension, packages the VSIX, uploads it to the release, and can publish to the VS Code Marketplace if `VS_MARKETPLACE_TOKEN` is configured.
+- **Install from VSIX:** Download the `.vsix` from the [Releases](https://github.com/sraphaz/mermaidEyes/releases) page and install via **Extensions** → **...** → **Install from VSIX**.
 
 ---
 
 ## 📚 Learn More
 
 - 📘 [Mermaid Documentation](https://mermaid.js.org/)
-- 🐙 [MermaidLens Repository](https://github.com/sraphaz/mermaidLens)
+- 🐙 [MermaidEyes Repository](https://github.com/sraphaz/mermaidEyes)
 
 ---
 
