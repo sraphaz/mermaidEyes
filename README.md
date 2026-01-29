@@ -3,7 +3,7 @@
 MermaidEyes is a VS Code extension (compatible with Cursor) that renders Mermaid code fences inline in the Markdown Preview, with a plug-and-play system for Mermaid themes and presets.
 
 - **Install (Marketplace):** [sraphaz.mermaideyes-extension](https://marketplace.visualstudio.com/items?itemName=sraphaz.mermaideyes-extension) — *página pode levar alguns minutos para aparecer após a publicação.*
-- **Releases (VSIX):** [GitHub Releases](https://github.com/sraphaz/mermaidLens/releases) — baixar `.vsix` e instalar manualmente se o link do Marketplace der 404.
+- **Releases (VSIX):** [GitHub Releases](https://github.com/sraphaz/mermaidEyes/releases) — baixar `.vsix` e instalar manualmente se o link do Marketplace der 404.
 - **Repository:** [github.com/sraphaz/mermaidEyes](https://github.com/sraphaz/mermaidEyes)
 
 The extension icon (`extension/media/icone.png`) is used in the **VS Code Marketplace** and **Git** (e.g. repo, README). It is not shown in the Markdown preview.
