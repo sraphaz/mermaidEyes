@@ -27,7 +27,7 @@ vi.mock("vscode", () => ({
   extensions: { getExtension: vi.fn() },
 }));
 
-vi.mock("@mermaidlens/core", () => ({
+vi.mock("@mermaideyes/core", () => ({
   loadThemes: vi.fn().mockReturnValue([{ id: "ocean", mermaid: { themeVariables: {} } }]),
   loadPresets: vi.fn().mockReturnValue([]),
   getThemeById: vi.fn(),

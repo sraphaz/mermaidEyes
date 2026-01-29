@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   resolve: {
     alias: {
-      "@mermaidlens/core": path.resolve(__dirname, "packages/core/src/index.ts"),
+      "@mermaideyes/core": path.resolve(__dirname, "packages/core/src/index.ts"),
     },
   },
   test: {

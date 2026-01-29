@@ -1,4 +1,4 @@
-# Contributing to MermaidLens
+# Contributing to MermaidEyes
 
 Thanks for wanting to contribute! This repo is designed for easy community extension.
 
@@ -13,7 +13,7 @@ Thanks for wanting to contribute! This repo is designed for easy community exten
 
 1. Create a new folder under `packages/presets/<your-preset-id>`.
 2. Add a `preset.json` with Mermaid directives.
-3. Verify your preset by setting `mermaidlens.preset` in settings.
+3. Verify your preset by setting `mermaideyes.preset` in settings.
 
 ## Code contributions
 

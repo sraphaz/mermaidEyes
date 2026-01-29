@@ -43,7 +43,7 @@ describe("showWelcomePage", () => {
 
   it("does nothing when welcome was already shown", async () => {
     const context = {
-      extensionPath: "/extensions/mermaidlens",
+      extensionPath: "/extensions/mermaideyes",
       globalState: {
         get: vi.fn().mockReturnValue(true),
         update: vi.fn()
@@ -59,7 +59,7 @@ describe("showWelcomePage", () => {
 
   it("opens welcome document and updates global state", async () => {
     const context = {
-      extensionPath: "/extensions/mermaidlens",
+      extensionPath: "/extensions/mermaideyes",
       globalState: {
         get: vi.fn().mockReturnValue(false),
         update: vi.fn()
@@ -76,6 +76,6 @@ describe("showWelcomePage", () => {
       { uri: { fsPath: expectedPath } },
       expect.objectContaining({ preview: false, viewColumn: 1 })
     );
-    expect(context.globalState.update).toHaveBeenCalledWith("mermaidlens.hasShownWelcome", true);
+    expect(context.globalState.update).toHaveBeenCalledWith("mermaideyes.hasShownWelcome", true);
   });
 });

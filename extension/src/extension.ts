@@ -1,21 +1,21 @@
 import fs from "fs";
 import path from "path";
 import * as vscode from "vscode";
-import { loadPresets, loadThemes } from "@mermaidlens/core";
+import { loadPresets, loadThemes } from "@mermaideyes/core";
 import { showWelcomePage } from "./features/welcome";
 import { markdownPlugin } from "./markdownPlugin";
 import { registerMermaidHover } from "./mermaidHover";
 
 function getThemeSetting(): string {
-  return vscode.workspace.getConfiguration().get<string>("mermaidlens.theme", "ocean");
+  return vscode.workspace.getConfiguration().get<string>("mermaideyes.theme", "ocean");
 }
 
 function getPresetSetting(): string {
-  return vscode.workspace.getConfiguration().get<string>("mermaidlens.preset", "none");
+  return vscode.workspace.getConfiguration().get<string>("mermaideyes.preset", "none");
 }
 
 function getDiagramOnHoverSetting(): boolean {
-  return vscode.workspace.getConfiguration().get<boolean>("mermaidlens.diagramOnHover", false);
+  return vscode.workspace.getConfiguration().get<boolean>("mermaideyes.diagramOnHover", false);
 }
 
 export function activate(context: vscode.ExtensionContext): unknown {
@@ -37,19 +37,19 @@ export function activate(context: vscode.ExtensionContext): unknown {
   const loadedPresets = loadPresets(presetRoot);
   
   if (loadedThemes.length === 0) {
-    console.warn(`[MermaidLens] Nenhum tema carregado de ${themeRoot}`);
+    console.warn(`[MermaidEyes] Nenhum tema carregado de ${themeRoot}`);
   } else {
-    console.log(`[MermaidLens] ${loadedThemes.length} tema(s) carregado(s)`);
+    console.log(`[MermaidEyes] ${loadedThemes.length} tema(s) carregado(s)`);
   }
   
   if (loadedPresets.length === 0) {
-    console.warn(`[MermaidLens] Nenhum preset carregado de ${presetRoot}`);
+    console.warn(`[MermaidEyes] Nenhum preset carregado de ${presetRoot}`);
   } else {
-    console.log(`[MermaidLens] ${loadedPresets.length} preset(s) carregado(s)`);
+    console.log(`[MermaidEyes] ${loadedPresets.length} preset(s) carregado(s)`);
   }
 
   // Na primeira vez após instalar, abre a welcome + preview ao lado (uma única vez)
-  const hasShownWelcome = context.globalState.get<boolean>("mermaidlens.hasShownWelcome");
+  const hasShownWelcome = context.globalState.get<boolean>("mermaideyes.hasShownWelcome");
   if (!hasShownWelcome) {
     void (async () => {
       await new Promise((r) => setTimeout(r, 1200));
@@ -58,13 +58,13 @@ export function activate(context: vscode.ExtensionContext): unknown {
   }
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("mermaidlens.refresh", async () => {
+    vscode.commands.registerCommand("mermaideyes.refresh", async () => {
       await vscode.commands.executeCommand("markdown.preview.refresh");
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("mermaidlens.viewWithMermaidLens", async (resourceUri?: vscode.Uri) => {
+    vscode.commands.registerCommand("mermaideyes.viewWithMermaidEyes", async (resourceUri?: vscode.Uri) => {
       let doc: vscode.TextDocument | undefined;
       if (resourceUri?.scheme === "file" && resourceUri.fsPath.endsWith(".md")) {
         doc = await vscode.workspace.openTextDocument(resourceUri);
@@ -79,20 +79,20 @@ export function activate(context: vscode.ExtensionContext): unknown {
         await vscode.commands.executeCommand("markdown.showPreviewToSide");
       } else {
         void vscode.window.showInformationMessage(
-          "Abra um arquivo Markdown ou clique com o botão direito em um .md no explorador e escolha 'View with MermaidLens'."
+          "Abra um arquivo Markdown ou clique com o botão direito em um .md no explorador e escolha 'View with MermaidEyes'."
         );
       }
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("mermaidlens.showWelcome", async () => {
+    vscode.commands.registerCommand("mermaideyes.showWelcome", async () => {
       await showWelcomePage(context, true);
     })
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("mermaidlens.editDiagram", async (args: unknown) => {
+    vscode.commands.registerCommand("mermaideyes.editDiagram", async (args: unknown) => {
       const line = Array.isArray(args) && typeof args[0] === "number" ? args[0] : undefined;
       if (line === undefined) return;
       const editor = vscode.window.activeTextEditor;
@@ -112,9 +112,9 @@ export function activate(context: vscode.ExtensionContext): unknown {
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {
       if (
-        event.affectsConfiguration("mermaidlens.theme") ||
-        event.affectsConfiguration("mermaidlens.preset") ||
-        event.affectsConfiguration("mermaidlens.diagramOnHover")
+        event.affectsConfiguration("mermaideyes.theme") ||
+        event.affectsConfiguration("mermaideyes.preset") ||
+        event.affectsConfiguration("mermaideyes.diagramOnHover")
       ) {
         void vscode.commands.executeCommand("markdown.preview.refresh");
       }

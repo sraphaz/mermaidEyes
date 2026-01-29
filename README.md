@@ -1,8 +1,8 @@
-# MermaidLens
+# MermaidEyes
 
-MermaidLens is a VS Code extension (compatible with Cursor) that renders Mermaid code fences inline in the Markdown Preview, with a plug-and-play system for Mermaid themes and presets.
+MermaidEyes is a VS Code extension (compatible with Cursor) that renders Mermaid code fences inline in the Markdown Preview, with a plug-and-play system for Mermaid themes and presets.
 
-**Repository:** [github.com/sraphaz/mermaidLens](https://github.com/sraphaz/mermaidLens)
+**Repository:** [github.com/sraphaz/mermaidEyes](https://github.com/sraphaz/mermaidEyes)
 
 The extension icon (`extension/media/icone.png`) is used in the **VS Code Marketplace** and **Git** (e.g. repo, README). It is not shown in the Markdown preview.
 
@@ -10,9 +10,9 @@ The extension icon (`extension/media/icone.png`) is used in the **VS Code Market
 
 - ✅ **Inline Mermaid diagrams** inside Markdown Preview, with theme colors (Ocean, Coral Reef, etc.).
 - ✅ **Hover no editor:** ao passar o mouse sobre um bloco Mermaid no Markdown, aparece uma caixa com o diagrama renderizado (cores do tema) e link para abrir o preview.
-- ✅ **View with MermaidLens:** comando para abrir o preview ao lado do arquivo ativo (menu do editor, barra de título ou botão direito no explorador em arquivos `.md`).
+- ✅ **View with MermaidEyes:** comando para abrir o preview ao lado do arquivo ativo (menu do editor, barra de título ou botão direito no explorador em arquivos `.md`).
 - ✅ **Primeira instalação:** na primeira vez após instalar, a extensão abre a página de boas-vindas e o preview ao lado automaticamente.
-- ✅ **Diagram on hover (preview):** opção `mermaidlens.diagramOnHover` — placeholder "View diagram" → hover ou clique mostra o diagrama no preview.
+- ✅ **Diagram on hover (preview):** opção `mermaideyes.diagramOnHover` — placeholder "View diagram" → hover ou clique mostra o diagrama no preview.
 - ✅ **Temas e presets:** Ocean por padrão; temas em `packages/themes/*` e presets em `packages/presets/*`.
 
 ## Getting started
@@ -39,9 +39,9 @@ npm test
 
 Set these in your VS Code/Cursor settings:
 
-- `mermaidlens.theme`: Theme id (default: `ocean`).
-- `mermaidlens.preset`: Preset id (default: `none`). Use `none` to avoid init blocks; use `architecture` for flowchart tweaks.
-- `mermaidlens.diagramOnHover`: When `true`, the diagram is **shown on hover** over a "View diagram" placeholder (no icon in preview). Turn off to always show diagrams inline.
+- `mermaideyes.theme`: Theme id (default: `ocean`).
+- `mermaideyes.preset`: Preset id (default: `none`). Use `none` to avoid init blocks; use `architecture` for flowchart tweaks.
+- `mermaideyes.diagramOnHover`: When `true`, the diagram is **shown on hover** over a "View diagram" placeholder (no icon in preview). Turn off to always show diagrams inline.
 
 ## Adding a new theme
 
@@ -53,11 +53,11 @@ Set these in your VS Code/Cursor settings:
 
 1. Create a new folder under `packages/presets/<your-preset-id>`.
 2. Add a `preset.json` file with Mermaid directives.
-3. Set `mermaidlens.preset` to your preset id and refresh the preview.
+3. Set `mermaideyes.preset` to your preset id and refresh the preview.
 
 ## Publishing
 
-- **VSIX:** `npm run package:vsix` (requires Node 20+). Output: `extension/mermaidlens-extension-<version>.vsix`.
+- **VSIX:** `npm run package:vsix` (requires Node 20+). Output: `extension/mermaideyes-extension-<version>.vsix`.
 - **Publicar localmente:** defina `VS_MARKETPLACE_TOKEN` (ambiente ou `.env`) e rode `npm run publish:marketplace` (faz build, empacota e publica no Marketplace).
 - **Release automático (CI/CD):**
   - Ao fazer **push em `master`** com alteração de versão em `extension/package.json` (ou `package.json`), o workflow **Tag on version bump** cria e envia a tag `vX.Y.Z`.

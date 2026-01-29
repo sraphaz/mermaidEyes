@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as zlib from "zlib";
-import { scanMermaid, getThemeById, getDefaultTheme, getThemeColors } from "@mermaidlens/core";
+import { scanMermaid, getThemeById, getDefaultTheme, getThemeColors } from "@mermaideyes/core";
 
 const MAX_CODE_LENGTH_FOR_IMAGE = 2500;
 const PREVIEW_CMD = "markdown.showPreviewToSide";
@@ -27,7 +27,7 @@ function findMermaidBlockAt(
 
 /** Injeta o tema atual no código Mermaid para o Kroki renderizar com as cores do tema. */
 function codeWithThemeInit(code: string): string {
-  const themeId = vscode.workspace.getConfiguration().get<string>("mermaidlens.theme", "ocean");
+  const themeId = vscode.workspace.getConfiguration().get<string>("mermaideyes.theme", "ocean");
   const theme = getThemeById(themeId) ?? getDefaultTheme();
   if (!theme?.mermaid?.themeVariables || Object.keys(theme.mermaid.themeVariables).length === 0) {
     return code;
@@ -63,7 +63,7 @@ const FALLBACK_COLORS = {
 };
 
 function getHoverBoxColors(): typeof FALLBACK_COLORS {
-  const themeId = vscode.workspace.getConfiguration().get<string>("mermaidlens.theme", "ocean");
+  const themeId = vscode.workspace.getConfiguration().get<string>("mermaideyes.theme", "ocean");
   const theme = getThemeById(themeId) ?? getDefaultTheme();
   const colors = getThemeColors(theme?.mermaid?.themeVariables);
   return {
@@ -118,7 +118,7 @@ export function registerMermaidHover(_context: vscode.ExtensionContext): vscode.
         }
 
         md.appendMarkdown(
-          `[Abrir preview com MermaidLens](command:${PREVIEW_CMD})`
+          `[Abrir preview com MermaidEyes](command:${PREVIEW_CMD})`
         );
         md.appendMarkdown("\n\n</div>");
 

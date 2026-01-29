@@ -1,6 +1,6 @@
-# MermaidLens Theme Template
+# MermaidEyes Theme Template
 
-Use this folder as the starting point for a new MermaidLens theme.
+Use this folder as the starting point for a new MermaidEyes theme.
 
 ## How to create a theme
 

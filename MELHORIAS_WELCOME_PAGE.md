@@ -20,7 +20,7 @@
 - **Delay apropriado**: Aguarda 300ms para garantir que o documento foi carregado antes de abrir o preview
 
 ### 3. **Comando para Reabrir Welcome**
-- **Novo comando**: `mermaidlens.showWelcome` adicionado
+- **Novo comando**: `mermaideyes.showWelcome` adicionado
 - **Acesso via Command Palette**: Pressione `Ctrl+Shift+P` e digite "MermaidLens: Show Welcome Page"
 - **Força exibição**: O comando força a exibição mesmo se já foi mostrada antes
 
