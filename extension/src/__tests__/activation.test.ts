@@ -9,7 +9,7 @@ const openTextDocument = vi.fn();
 vi.mock("vscode", () => ({
   window: {
     showTextDocument,
-    createOutputChannel: vi.fn(() => ({ appendLine: vi.fn() })),
+    createOutputChannel: vi.fn(() => ({ appendLine: vi.fn(), show: vi.fn() })),
   },
   workspace: {
     openTextDocument,
