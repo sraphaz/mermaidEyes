@@ -27,7 +27,10 @@ jobs:
           echo "version=$v" >> $GITHUB_OUTPUT
           echo "tag=v$v" >> $GITHUB_OUTPUT
 
-      - name: Check if tag exists
+      - name: Fetch tags from remote
+        run: git fetch --tags
+
+      - name: Check if tag exists (local or remote)
         id: check
         run: |
           TAG="${{ steps.version.outputs.tag }}"
