@@ -91,6 +91,9 @@ export function registerMermaidHover(_context: vscode.ExtensionContext): vscode.
     { language: "markdown" },
     {
       provideHover(document, position) {
+        const diagramOnHover = vscode.workspace.getConfiguration().get<boolean>("mermaideyes.diagramOnHover", true);
+        if (!diagramOnHover) return null;
+
         const result = findMermaidBlockAt(document, position);
         if (!result) return null;
 

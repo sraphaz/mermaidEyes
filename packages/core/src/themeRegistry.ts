@@ -31,7 +31,8 @@ export function loadThemes(basePath: string): MermaidTheme[] {
       .filter((themePath) => fs.existsSync(themePath))
       .map((themePath) => {
         try {
-          const raw = fs.readFileSync(themePath, "utf-8");
+          let raw = fs.readFileSync(themePath, "utf-8");
+          if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
           const theme = JSON.parse(raw) as MermaidTheme;
           // Validação básica
           if (!theme.id || !theme.mermaid) {

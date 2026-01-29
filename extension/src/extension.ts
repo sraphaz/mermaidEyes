@@ -15,18 +15,17 @@ function getPresetSetting(): string {
 }
 
 function getDiagramOnHoverSetting(): boolean {
-  return vscode.workspace.getConfiguration().get<boolean>("mermaideyes.diagramOnHover", false);
+  return vscode.workspace.getConfiguration().get<boolean>("mermaideyes.diagramOnHover", true);
 }
 
 export function activate(context: vscode.ExtensionContext): unknown {
+  const output = vscode.window.createOutputChannel("MermaidEyes");
   // Raiz da extensão a partir do código (dist/extension.js → __dirname = dist, raiz = ..)
-  // Mais confiável que context.extensionPath em extensão instalada (VSIX/Marketplace).
   const extensionRoot = path.resolve(__dirname, "..");
-  const prodThemeRoot = path.join(extensionRoot, "packages", "themes");
-  const prodPresetRoot = path.join(extensionRoot, "packages", "presets");
-  // Desenvolvimento: repo ao lado da extensão (extension/../packages/themes)
-  const devThemeRoot = path.join(extensionRoot, "..", "packages", "themes");
-  const devPresetRoot = path.join(extensionRoot, "..", "packages", "presets");
+  const prodThemeRoot = path.resolve(extensionRoot, "packages", "themes");
+  const prodPresetRoot = path.resolve(extensionRoot, "packages", "presets");
+  const devThemeRoot = path.resolve(extensionRoot, "..", "packages", "themes");
+  const devPresetRoot = path.resolve(extensionRoot, "..", "packages", "presets");
   const hasDevThemes = fs.existsSync(path.join(devThemeRoot, "ocean", "theme.json"));
   const hasDevPresets = fs.existsSync(path.join(devPresetRoot, "none", "preset.json"));
 
@@ -35,18 +34,28 @@ export function activate(context: vscode.ExtensionContext): unknown {
 
   const loadedThemes = loadThemes(themeRoot);
   const loadedPresets = loadPresets(presetRoot);
-  
+
+  output.appendLine(`extensionRoot: ${extensionRoot}`);
+  output.appendLine(`themeRoot: ${themeRoot} (exists: ${fs.existsSync(themeRoot)})`);
+  output.appendLine(`presetRoot: ${presetRoot} (exists: ${fs.existsSync(presetRoot)})`);
+  output.appendLine(`themes: ${loadedThemes.length}, presets: ${loadedPresets.length}`);
+
   if (loadedThemes.length === 0) {
+    output.appendLine(`[WARN] Nenhum tema carregado. Hover e preview podem falhar.`);
     console.warn(`[MermaidEyes] Nenhum tema carregado de ${themeRoot}`);
   } else {
     console.log(`[MermaidEyes] ${loadedThemes.length} tema(s) carregado(s)`);
   }
-  
+
   if (loadedPresets.length === 0) {
+    output.appendLine(`[WARN] Nenhum preset carregado.`);
     console.warn(`[MermaidEyes] Nenhum preset carregado de ${presetRoot}`);
   } else {
     console.log(`[MermaidEyes] ${loadedPresets.length} preset(s) carregado(s)`);
   }
+
+  const welcomePath = path.join(extensionRoot, "media", "welcome.md");
+  output.appendLine(`welcome: ${welcomePath} (exists: ${fs.existsSync(welcomePath)})`);
 
   // Na primeira vez após instalar, abre a welcome + preview ao lado (uma única vez)
   const hasShownWelcome = context.globalState.get<boolean>("mermaideyes.hasShownWelcome");
@@ -75,8 +84,8 @@ export function activate(context: vscode.ExtensionContext): unknown {
         }
       }
       if (doc) {
-        await vscode.window.showTextDocument(doc, { viewColumn: vscode.ViewColumn.One });
-        await vscode.commands.executeCommand("markdown.showPreviewToSide");
+        await vscode.window.showTextDocument(doc, { viewColumn: vscode.ViewColumn.One, preserveFocus: false });
+        await vscode.commands.executeCommand("markdown.showPreviewToSide", doc.uri);
       } else {
         void vscode.window.showInformationMessage(
           "Abra um arquivo Markdown ou clique com o botão direito em um .md no explorador e escolha 'View with MermaidEyes'."
@@ -121,12 +130,14 @@ export function activate(context: vscode.ExtensionContext): unknown {
     })
   );
 
+  // Preview sempre mostra diagrama renderizado (sem placeholder). O toggle diagramOnHover
+  // é só para uso futuro no editor/código, não no preview.
   return {
     extendMarkdownIt(md: import("markdown-it")) {
       markdownPlugin(md, {
         getThemeId: getThemeSetting,
         getPresetId: getPresetSetting,
-        getDiagramOnHover: getDiagramOnHoverSetting
+        getDiagramOnHover: () => false
       });
       return md;
     }

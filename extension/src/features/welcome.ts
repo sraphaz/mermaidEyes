@@ -20,7 +20,7 @@ export async function showWelcomePage(
   welcomeOpening = true;
 
   const basePath = extensionRoot ?? context.extensionPath;
-  const welcomePath = path.join(basePath, "media", "welcome.md");
+  const welcomePath = path.resolve(basePath, "media", "welcome.md");
   const welcomeUri = vscode.Uri.file(welcomePath);
   
   if (!fs.existsSync(welcomePath)) {

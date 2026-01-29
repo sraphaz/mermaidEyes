@@ -66,14 +66,14 @@ describe("showWelcomePage", () => {
       }
     } as const;
 
-    const expectedPath = path.join(context.extensionPath, "media", "welcome.md");
+    const expectedPath = path.resolve(context.extensionPath, "media", "welcome.md");
     openTextDocument.mockResolvedValue({ uri: { fsPath: expectedPath } });
 
     await showWelcomePage(context);
 
-    expect(openTextDocument).toHaveBeenCalledWith({ fsPath: expectedPath });
+    expect(openTextDocument).toHaveBeenCalledWith(expect.objectContaining({ fsPath: expectedPath }));
     expect(showTextDocument).toHaveBeenCalledWith(
-      { uri: { fsPath: expectedPath } },
+      expect.objectContaining({ uri: expect.objectContaining({ fsPath: expectedPath }) }),
       expect.objectContaining({ preview: false, viewColumn: 1 })
     );
     expect(context.globalState.update).toHaveBeenCalledWith("mermaideyes.hasShownWelcome", true);

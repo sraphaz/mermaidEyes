@@ -115,7 +115,7 @@ MermaidEyes comes with beautiful themes and presets out of the box!
 You can change:
 - `mermaideyes.theme` - Choose your theme
 - `mermaideyes.preset` - Choose your preset
-- `mermaideyes.diagramOnHover` - When **true**, diagrams are hidden behind a "View diagram" placeholder; **hover** over the placeholder to show the diagram. When **false** (default), diagrams are always shown inline.
+- `mermaideyes.diagramOnHover` - When **true** (default), hovering over Mermaid code in the editor shows the rendered diagram. When **false**, no hover. Preview always shows diagrams—unaffected.
 
 ---
 
@@ -124,7 +124,7 @@ You can change:
 1. **Refresh Preview**: Use `Ctrl+Shift+V` (or `Cmd+Shift+V` on Mac) to refresh the preview
 2. **Command Palette**: Press `Ctrl+Shift+P` and type "MermaidEyes" to see all commands
 3. **Reopen Welcome**: Use the command "MermaidEyes: Show Welcome Page" anytime
-4. **"View diagram" / hover**: If you see **View diagram** instead of a diagram, **hover** over the placeholder (move the mouse over it) to reveal the diagram. To always see diagrams inline on this page, turn off `mermaideyes.diagramOnHover` in settings.
+4. **Hover no código:** By default, passing the mouse over Mermaid code in the editor shows the rendered diagram. Turn off `mermaideyes.diagramOnHover` in settings to disable. Preview always shows diagrams—unaffected.
 
 ---
 

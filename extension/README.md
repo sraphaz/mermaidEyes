@@ -26,7 +26,8 @@ Inline Mermaid diagrams in the Markdown Preview — themes, presets, and hover p
 
 ## Features
 
-- **Inline Mermaid diagrams** — Renders ` ```mermaid ` code fences directly in the Markdown Preview with theme colors (Ocean, Coral Reef, etc.).
+- **Inline Mermaid diagrams** — Renders ` ```mermaid
+` code fences directly in the Markdown Preview with theme colors (Ocean, Coral Reef, etc.).
 - **Hover in editor** — Hover over a Mermaid block in the editor to see the diagram and a link to open the preview.
 - **View with MermaidEyes** — Command to open the preview next to the active file (editor title bar, context menu, or explorer right-click on `.md` files).
 - **First install** — Welcome page and preview open automatically after installation.
@@ -47,7 +48,6 @@ Inline Mermaid diagrams in the Markdown Preview — themes, presets, and hover p
 ## Examples
 
 ### Flowchart
-
 ```mermaid
 graph TD
   A[Start] --> B{Decision}
@@ -85,7 +85,7 @@ Your Mermaid block must start with a diagram type keyword: `graph`, `flowchart`,
 |--------|------|---------|-------------|
 | `mermaideyes.theme` | string | `ocean` | Theme id for Mermaid rendering (e.g. `ocean`, `coralreef`). |
 | `mermaideyes.preset` | string | `none` | Preset id for Mermaid directives. Use `none` to avoid init blocks; use `architecture` for flowchart tweaks. |
-| `mermaideyes.diagramOnHover` | boolean | `false` | When `true`, shows a "View diagram" placeholder in the preview; hover or click to reveal. When `false`, diagrams are always shown inline. |
+| `mermaideyes.diagramOnHover` | boolean | `true` | When `true` (default), hovering over Mermaid code in the editor shows the rendered diagram. When `false`, no hover. Preview always shows diagrams—unaffected. |
 
 Open **Settings** and search for `mermaideyes` to change these.
 

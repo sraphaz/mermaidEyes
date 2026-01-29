@@ -24,7 +24,8 @@ export function loadPresets(basePath: string): MermaidPreset[] {
       .filter((presetPath) => fs.existsSync(presetPath))
       .map((presetPath) => {
         try {
-          const raw = fs.readFileSync(presetPath, "utf-8");
+          let raw = fs.readFileSync(presetPath, "utf-8");
+          if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
           const preset = JSON.parse(raw) as MermaidPreset;
           // Validação básica
           if (!preset.id || !preset.directives) {

@@ -2,7 +2,7 @@
   "name": "mermaideyes-extension",
   "displayName": "MermaidEyes",
   "description": "Inline Mermaid diagrams for Markdown preview with themes and presets.",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "publisher": "sraphaz",
   "license": "MIT",
   "repository": {
@@ -107,8 +107,8 @@
         },
         "mermaideyes.diagramOnHover": {
           "type": "boolean",
-          "default": false,
-          "description": "When enabled, show a 'View diagram' placeholder; hovering reveals the diagram. When false (default), diagrams are always shown inline and clickable to edit."
+          "default": true,
+          "description": "When true (default), hovering over Mermaid code in the editor shows the rendered diagram. When false, no hover. Preview always shows diagrams—unaffected."
         }
       }
     }

@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.11] - 2026-01-29
+
+### Added
+
+- Output channel **MermaidEyes** (View > Output) for debug: extensionRoot, themeRoot, presetRoot, welcome path, and loaded themes/presets count.
+- Toggle **mermaideyes.diagramOnHover** default **true**: hover over Mermaid code in the editor shows the rendered diagram by default; can be turned off in settings.
+
+### Fixed
+
+- **View with MermaidEyes:** Pass document URI to `markdown.showPreviewToSide` so the preview opens for the correct file.
+- BOM stripping when reading theme and preset JSON (core) to avoid encoding issues on Windows.
+
+### Changed
+
+- **Preview:** Always shows diagrams rendered—no placeholder. Toggle diagramOnHover only affects editor hover, not preview.
+- Paths normalized with `path.resolve` for themes, presets, and welcome.
+- Toggle description: when true (default), editor hover shows diagram; when false, no hover. Preview unaffected.
+
 ## [0.2.10] - 2026-01-29
 
 ### Fixed
@@ -85,7 +103,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Initial release flow and documentation.
 
-[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.10...HEAD
+[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.11...HEAD
+[0.2.11]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.10...v0.2.11
 [0.2.10]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.9...v0.2.10
 [0.2.9]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.8...v0.2.9
 [0.2.8]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.7...v0.2.8
