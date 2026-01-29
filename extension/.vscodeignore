@@ -1,3 +1,4 @@
+# Do NOT add README.md or CHANGELOG.md — Marketplace uses them for Overview and Release Notes
 .vscode/**
 .vscodeignore
 src/**
