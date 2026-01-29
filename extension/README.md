@@ -2,6 +2,8 @@
 
 Inline Mermaid diagrams in the Markdown Preview — themes, presets, and hover preview. Compatible with VS Code and Cursor.
 
+[![CI](https://github.com/sraphaz/mermaidEyes/actions/workflows/ci.yml/badge.svg)](https://github.com/sraphaz/mermaidEyes/actions/workflows/ci.yml)
+[![Release](https://github.com/sraphaz/mermaidEyes/actions/workflows/release.yml/badge.svg)](https://github.com/sraphaz/mermaidEyes/actions/workflows/release.yml)
 [![Marketplace](https://img.shields.io/badge/VS%20Code-Marketplace-blue?logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=sraphaz.mermaideyes-extension)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub](https://img.shields.io/badge/GitHub-sraphaz%2FmermaidEyes-24292e?logo=github)](https://github.com/sraphaz/mermaidEyes)

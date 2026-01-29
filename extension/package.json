@@ -2,7 +2,7 @@
   "name": "mermaideyes-extension",
   "displayName": "MermaidEyes",
   "description": "Inline Mermaid diagrams for Markdown preview with themes and presets.",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "publisher": "sraphaz",
   "license": "MIT",
   "repository": {
