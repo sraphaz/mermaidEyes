@@ -78,11 +78,13 @@ jobs:
       - name: Prepack for vsce
         run: npx rimraf extension/node_modules && node scripts/prepack-for-vsce.mjs
 
-      - name: Verify README and CHANGELOG for Marketplace overview
+      - name: Verify README, CHANGELOG and packages (themes/presets) for extension
         run: |
           test -f extension/README.md || (echo "::error::extension/README.md missing" && exit 1)
           test -f extension/CHANGELOG.md || (echo "::warning::extension/CHANGELOG.md missing" && true)
-          echo "README.md ($(wc -c < extension/README.md) bytes) and CHANGELOG.md present for Marketplace overview."
+          test -f extension/packages/themes/ocean/theme.json || (echo "::error::extension/packages/themes/ocean/theme.json missing (hover/themes will fail)" && exit 1)
+          test -f extension/packages/presets/none/preset.json || (echo "::error::extension/packages/presets/none/preset.json missing" && exit 1)
+          echo "README, CHANGELOG and packages/themes, packages/presets present."
 
       - name: Package VSIX
         run: cd extension && npx @vscode/vsce package --no-dependencies

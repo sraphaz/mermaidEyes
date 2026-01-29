@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.10] - 2026-01-29
+
+### Fixed
+
+- **Extension root path:** Use `__dirname` (code location) instead of `context.extensionPath` for themes, presets, and welcome path. Fixes hover, welcome page, and preview on first install when the extension is installed from Marketplace or VSIX.
+
+### Changed
+
+- Release workflow: verify `extension/packages/themes/ocean/theme.json` and `extension/packages/presets/none/preset.json` before packaging so the VSIX always includes them.
+
 ## [0.2.9] - 2026-01-29
 
 ### Fixed
@@ -75,7 +85,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Initial release flow and documentation.
 
-[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.9...HEAD
+[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.10...HEAD
+[0.2.10]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.9...v0.2.10
 [0.2.9]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.8...v0.2.9
 [0.2.8]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.7...v0.2.8
 [0.2.7]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.6...v0.2.7

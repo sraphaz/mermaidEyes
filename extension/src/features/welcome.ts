@@ -4,7 +4,11 @@ import * as vscode from "vscode";
 
 let welcomeOpening = false;
 
-export async function showWelcomePage(context: vscode.ExtensionContext, forceShow = false): Promise<void> {
+export async function showWelcomePage(
+  context: vscode.ExtensionContext,
+  forceShow = false,
+  extensionRoot?: string
+): Promise<void> {
   if (welcomeOpening) return;
   if (!forceShow) {
     const hasShown = context.globalState.get<boolean>("mermaideyes.hasShownWelcome");
@@ -15,7 +19,8 @@ export async function showWelcomePage(context: vscode.ExtensionContext, forceSho
   }
   welcomeOpening = true;
 
-  const welcomePath = path.join(context.extensionPath, "media", "welcome.md");
+  const basePath = extensionRoot ?? context.extensionPath;
+  const welcomePath = path.join(basePath, "media", "welcome.md");
   const welcomeUri = vscode.Uri.file(welcomePath);
   
   if (!fs.existsSync(welcomePath)) {

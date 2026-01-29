@@ -19,13 +19,14 @@ function getDiagramOnHoverSetting(): boolean {
 }
 
 export function activate(context: vscode.ExtensionContext): unknown {
-  // Produção: packages/ dentro da extensão (copiados no build por copy-assets.js)
-  const prodThemeRoot = path.join(context.extensionPath, "packages", "themes");
-  const prodPresetRoot = path.join(context.extensionPath, "packages", "presets");
-  // Desenvolvimento: só usa repo se existir nosso tema ocean (evita usar .vscode/extensions/packages por engano)
-  const repoRoot = path.resolve(context.extensionPath, "..");
-  const devThemeRoot = path.join(repoRoot, "packages", "themes");
-  const devPresetRoot = path.join(repoRoot, "packages", "presets");
+  // Raiz da extensão a partir do código (dist/extension.js → __dirname = dist, raiz = ..)
+  // Mais confiável que context.extensionPath em extensão instalada (VSIX/Marketplace).
+  const extensionRoot = path.resolve(__dirname, "..");
+  const prodThemeRoot = path.join(extensionRoot, "packages", "themes");
+  const prodPresetRoot = path.join(extensionRoot, "packages", "presets");
+  // Desenvolvimento: repo ao lado da extensão (extension/../packages/themes)
+  const devThemeRoot = path.join(extensionRoot, "..", "packages", "themes");
+  const devPresetRoot = path.join(extensionRoot, "..", "packages", "presets");
   const hasDevThemes = fs.existsSync(path.join(devThemeRoot, "ocean", "theme.json"));
   const hasDevPresets = fs.existsSync(path.join(devPresetRoot, "none", "preset.json"));
 
@@ -52,7 +53,7 @@ export function activate(context: vscode.ExtensionContext): unknown {
   if (!hasShownWelcome) {
     void (async () => {
       await new Promise((r) => setTimeout(r, 1200));
-      await showWelcomePage(context);
+      await showWelcomePage(context, false, extensionRoot);
     })();
   }
 
@@ -86,7 +87,7 @@ export function activate(context: vscode.ExtensionContext): unknown {
 
   context.subscriptions.push(
     vscode.commands.registerCommand("mermaideyes.showWelcome", async () => {
-      await showWelcomePage(context, true);
+      await showWelcomePage(context, true, extensionRoot);
     })
   );
 
