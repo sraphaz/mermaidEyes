@@ -87,7 +87,7 @@ jobs:
           echo "README, CHANGELOG and packages/themes, packages/presets present."
 
       - name: Package VSIX
-        run: cd extension && npx @vscode/vsce package --no-dependencies
+        run: cd extension && npx @vscode/vsce package --no-dependencies --allow-star-activation
         env:
           VSCE_SKIP_DEPENDENCY_CHECK: 1
 

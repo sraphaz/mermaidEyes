@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.14] - 2026-01-28
+
+### Added
+
+- Hover provider logs to Output > MermaidEyes: each hover request (line:col), diagramOnHover value, and whether cursor is inside a mermaid block (for debugging).
+
+### Changed
+
+- **activationEvents:** Restored `*` so extension activates on startup (output and hover work reliably). Release workflow uses `--allow-star-activation` so vsce does not warn.
+
 ## [0.2.13] - 2026-01-28
 
 ### Fixed

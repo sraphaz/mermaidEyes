@@ -120,7 +120,7 @@ export function activate(context: vscode.ExtensionContext): unknown {
       })
     );
 
-    context.subscriptions.push(registerMermaidHover(context));
+    context.subscriptions.push(registerMermaidHover(context, output));
 
     context.subscriptions.push(
       vscode.workspace.onDidChangeConfiguration((event) => {
@@ -137,6 +137,7 @@ export function activate(context: vscode.ExtensionContext): unknown {
     // Preview sempre mostra diagrama renderizado (sem placeholder). O toggle diagramOnHover
     // é só para uso futuro no editor/código, não no preview.
     output.appendLine("[MermaidEyes] activate() completed");
+    output.show(true);
     return {
       extendMarkdownIt(md: import("markdown-it")) {
         markdownPlugin(md, {
