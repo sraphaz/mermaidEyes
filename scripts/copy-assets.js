@@ -4,6 +4,7 @@ const path = require('path');
 const extensionDir = path.join(__dirname, '..', 'extension');
 const packagesDir = path.join(__dirname, '..', 'packages');
 const targetPackagesDir = path.join(extensionDir, 'packages');
+const rootDir = path.join(__dirname, '..');
 
 // Função para copiar diretório recursivamente
 function copyDir(src, dest) {
@@ -45,6 +46,22 @@ if (fs.existsSync(presetsSrc)) {
   console.log('✓ Presets copiados');
 } else {
   console.warn('⚠ Diretório de presets não encontrado:', presetsSrc);
+}
+
+// Copiar Mermaid (script do preview; evita bloqueio de CDN na pré-visualização)
+const mediaDir = path.join(extensionDir, 'media');
+const mermaidDest = path.join(mediaDir, 'mermaid.min.js');
+const mermaidCandidates = [
+  path.join(rootDir, 'node_modules', 'mermaid', 'dist', 'mermaid.min.js'),
+  path.join(extensionDir, 'node_modules', 'mermaid', 'dist', 'mermaid.min.js')
+];
+const mermaidSrc = mermaidCandidates.find(function (p) { return fs.existsSync(p); });
+if (mermaidSrc) {
+  if (!fs.existsSync(mediaDir)) fs.mkdirSync(mediaDir, { recursive: true });
+  fs.copyFileSync(mermaidSrc, mermaidDest);
+  console.log('✓ Mermaid copiado para extension/media');
+} else {
+  console.warn('⚠ Mermaid não encontrado (rode npm install na raiz). Preview pode falhar ao renderizar diagramas.');
 }
 
 console.log('✓ Assets copiados com sucesso!');

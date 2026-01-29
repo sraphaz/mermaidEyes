@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 import { loadPresets, loadThemes } from "@mermaidlens/core";
 import { showWelcomePage } from "./features/welcome";
 import { markdownPlugin } from "./markdownPlugin";
+import { registerMermaidHover } from "./mermaidHover";
 
 function getThemeSetting(): string {
   return vscode.workspace.getConfiguration().get<string>("mermaidlens.theme", "ocean");
@@ -46,14 +47,15 @@ export function activate(context: vscode.ExtensionContext): unknown {
   } else {
     console.log(`[MermaidLens] ${loadedPresets.length} preset(s) carregado(s)`);
   }
-  
-  // Mostra a página de boas-vindas após a inicialização
-  // Usa setTimeout para garantir que o VS Code está pronto
-  void (async () => {
-    // Aguarda um pouco para garantir que o VS Code está totalmente inicializado
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    await showWelcomePage(context);
-  })();
+
+  // Na primeira vez após instalar, abre a welcome + preview ao lado (uma única vez)
+  const hasShownWelcome = context.globalState.get<boolean>("mermaidlens.hasShownWelcome");
+  if (!hasShownWelcome) {
+    void (async () => {
+      await new Promise((r) => setTimeout(r, 1200));
+      await showWelcomePage(context);
+    })();
+  }
 
   context.subscriptions.push(
     vscode.commands.registerCommand("mermaidlens.refresh", async () => {
@@ -62,10 +64,50 @@ export function activate(context: vscode.ExtensionContext): unknown {
   );
 
   context.subscriptions.push(
+    vscode.commands.registerCommand("mermaidlens.viewWithMermaidLens", async (resourceUri?: vscode.Uri) => {
+      let doc: vscode.TextDocument | undefined;
+      if (resourceUri?.scheme === "file" && resourceUri.fsPath.endsWith(".md")) {
+        doc = await vscode.workspace.openTextDocument(resourceUri);
+      } else {
+        const editor = vscode.window.activeTextEditor;
+        if (editor?.document.languageId === "markdown") {
+          doc = editor.document;
+        }
+      }
+      if (doc) {
+        await vscode.window.showTextDocument(doc, { viewColumn: vscode.ViewColumn.One });
+        await vscode.commands.executeCommand("markdown.showPreviewToSide");
+      } else {
+        void vscode.window.showInformationMessage(
+          "Abra um arquivo Markdown ou clique com o botão direito em um .md no explorador e escolha 'View with MermaidLens'."
+        );
+      }
+    })
+  );
+
+  context.subscriptions.push(
     vscode.commands.registerCommand("mermaidlens.showWelcome", async () => {
       await showWelcomePage(context, true);
     })
   );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("mermaidlens.editDiagram", async (args: unknown) => {
+      const line = Array.isArray(args) && typeof args[0] === "number" ? args[0] : undefined;
+      if (line === undefined) return;
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        void vscode.window.showInformationMessage("Abra o arquivo Markdown no editor para editar o diagrama.");
+        return;
+      }
+      const position = new vscode.Position(Math.max(0, line - 1), 0);
+      await editor.revealRange(new vscode.Range(position, position), vscode.TextEditorRevealType.AtTop);
+      editor.selection = new vscode.Selection(position, position);
+      await vscode.window.showTextDocument(editor.document, editor.viewColumn);
+    })
+  );
+
+  context.subscriptions.push(registerMermaidHover(context));
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {

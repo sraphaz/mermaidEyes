@@ -4,6 +4,7 @@ import { applyPreset, getPresetById, getThemeById, getDefaultTheme } from "@merm
 import { injectAssets } from "./injectAssets";
 
 const VIEW_DIAGRAM_LABEL = "View diagram";
+const EDIT_DIAGRAM_TITLE = "Clique para editar o diagrama";
 
 interface MermaidLensPluginOptions {
   getThemeId: () => string;
@@ -21,6 +22,11 @@ function escapeAttr(s: string): string {
 
 function wrapWithLabel(html: string): string {
   return `<span class="mermaidlens-label">${VIEW_DIAGRAM_LABEL}</span>${html}`;
+}
+
+function editDiagramCommandUri(line: number): string {
+  const args = encodeURIComponent(JSON.stringify([line]));
+  return `command:mermaidlens.editDiagram?${args}`;
 }
 
 export function markdownPlugin(md: MarkdownIt, options: MermaidLensPluginOptions): void {
@@ -59,6 +65,9 @@ export function markdownPlugin(md: MarkdownIt, options: MermaidLensPluginOptions
       const dataSrc = escapeAttr(JSON.stringify(mermaidCode));
       const assets = injectOnce(env, theme ?? undefined, diagramOnHover);
 
+      const startLine = token.map ? token.map[0] : 1;
+      const editUri = editDiagramCommandUri(startLine);
+
       const renderDiv = `<div class="mermaidlens-render" data-mermaid-src="${dataSrc}"></div>`;
       const label = wrapWithLabel("");
       const placeholder = diagramOnHover
@@ -70,7 +79,12 @@ export function markdownPlugin(md: MarkdownIt, options: MermaidLensPluginOptions
         ? `<div class="mermaidlens-wrap">${placeholder}${renderDiv}</div>`
         : renderDiv;
 
-      return `${assets}<div class="mermaidlens-diagram${hoverClass}">${label}${wrap}</div>`;
+      const diagramBlock = `<div class="mermaidlens-diagram${hoverClass}">${label}${wrap}</div>`;
+      const clickableBlock = diagramOnHover
+        ? diagramBlock
+        : `<a class="mermaidlens-edit-link" href="${escapeAttr(editUri)}" title="${escapeAttr(EDIT_DIAGRAM_TITLE)}">${diagramBlock}</a>`;
+
+      return `${assets}${clickableBlock}`;
     } catch (error) {
       console.error("[MermaidLens] Erro ao processar diagrama Mermaid:", error);
       const dataSrc = escapeAttr(JSON.stringify(raw));

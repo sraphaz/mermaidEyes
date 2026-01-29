@@ -97,10 +97,25 @@
         });
         setTimeout(function () { renderDiagrams(m); }, 100);
         setTimeout(function () { renderDiagrams(m); }, 500);
+        setTimeout(attachHoverClick, 200);
+        setTimeout(attachHoverClick, 600);
       })
       .catch(function (e) {
         console.error('[MermaidLens] Erro ao carregar Mermaid:', e);
       });
+  }
+
+  function attachHoverClick() {
+    document.querySelectorAll('.mermaidlens-placeholder').forEach(function (ph) {
+      if (ph.getAttribute('data-mermaidlens-click') === '1') return;
+          ph.setAttribute('data-mermaidlens-click', '1');
+          var wrap = ph.closest('.mermaidlens-wrap');
+          if (!wrap) return;
+          ph.addEventListener('click', function (e) {
+            e.preventDefault();
+            wrap.classList.toggle('mermaidlens-reveal');
+          });
+        });
   }
 
   var observer = new MutationObserver(function (mutations) {
@@ -124,6 +139,7 @@
       }
     });
     if (hasNew) setTimeout(function () { renderDiagrams(window.mermaid); }, 150);
+    attachHoverClick();
   });
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {

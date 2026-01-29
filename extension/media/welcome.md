@@ -1,10 +1,16 @@
 <p align="center">
-  <img src="./icon.png" width="96" alt="MermaidLens logo" />
+  <img src="./icone.png" width="96" alt="MermaidLens logo" />
 </p>
 
 # 🌊 MermaidLens
 
+[![CI](https://github.com/sraphaz/mermaidLens/actions/workflows/ci.yml/badge.svg)](https://github.com/sraphaz/mermaidLens/actions/workflows/ci.yml)
+[![Release](https://github.com/sraphaz/mermaidLens/actions/workflows/release.yml/badge.svg)](https://github.com/sraphaz/mermaidLens/actions/workflows/release.yml)
+[![Releases](https://img.shields.io/github/v/release/sraphaz/mermaidLens)](https://github.com/sraphaz/mermaidLens/releases)
+
 Welcome to **MermaidLens** — magical Mermaid diagrams rendered inline inside Markdown Preview!
+
+**👉 [Abrir preview ao lado](command:markdown.showPreviewToSide)** — clique se o preview não abriu sozinho.
 
 ---
 
@@ -34,6 +40,11 @@ Or use the preview button in the editor toolbar.
 
 MermaidLens automatically renders your Mermaid code into beautiful, styled diagrams.
 
+**Two display modes:**
+
+- **Inline (default):** Diagrams are always visible in the preview.
+- **Diagram on hover:** When enabled in settings, you see a **"View diagram"** placeholder; **hover** over it to reveal the diagram. Useful to reduce clutter or focus on text first.
+
 ---
 
 ## 📊 Demo: Different Diagram Types
@@ -44,9 +55,6 @@ MermaidLens automatically renders your Mermaid code into beautiful, styled diagr
 graph LR
   A[Write] --> B[Preview]
   B --> C[Share]
-  style A fill:#00CFFF
-  style B fill:#6AE3D9
-  style C fill:#00CFFF
 ```
 
 ### Sequence Diagram
@@ -107,6 +115,7 @@ MermaidLens comes with beautiful themes and presets out of the box!
 You can change:
 - `mermaidlens.theme` - Choose your theme
 - `mermaidlens.preset` - Choose your preset
+- `mermaidlens.diagramOnHover` - When **true**, diagrams are hidden behind a "View diagram" placeholder; **hover** over the placeholder to show the diagram. When **false** (default), diagrams are always shown inline.
 
 ---
 
@@ -115,6 +124,15 @@ You can change:
 1. **Refresh Preview**: Use `Ctrl+Shift+V` (or `Cmd+Shift+V` on Mac) to refresh the preview
 2. **Command Palette**: Press `Ctrl+Shift+P` and type "MermaidLens" to see all commands
 3. **Reopen Welcome**: Use the command "MermaidLens: Show Welcome Page" anytime
+4. **"View diagram" / hover**: If you see **View diagram** instead of a diagram, **hover** over the placeholder (move the mouse over it) to reveal the diagram. To always see diagrams inline on this page, turn off `mermaidlens.diagramOnHover` in settings.
+
+---
+
+## 🔧 CI & Release
+
+- **CI:** Runs on every push and pull request to `main`/`master` (build, test, package VSIX). See [Actions](https://github.com/sraphaz/mermaidLens/actions).
+- **Release:** Creating a [GitHub Release](https://github.com/sraphaz/mermaidLens/releases) (e.g. `v0.2.2`) triggers the release workflow: it builds the extension, packages the VSIX, uploads it to the release, and can publish to the VS Code Marketplace if `VS_MARKETPLACE_TOKEN` is configured.
+- **Install from VSIX:** Download the `.vsix` from the [Releases](https://github.com/sraphaz/mermaidLens/releases) page and install via **Extensions** → **...** → **Install from VSIX**.
 
 ---
 

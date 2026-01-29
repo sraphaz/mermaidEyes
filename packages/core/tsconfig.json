@@ -12,6 +12,6 @@
     "composite": true,
     "skipLibCheck": true
   },
-  "include": ["src"],
+  "include": ["src/index.ts", "src/applyPreset.ts", "src/presetRegistry.ts", "src/scanMermaid.ts", "src/themeColors.ts", "src/themeRegistry.ts"],
   "references": []
 }

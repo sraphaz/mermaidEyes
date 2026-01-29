@@ -2,7 +2,7 @@
   "name": "mermaidlens-extension",
   "displayName": "MermaidLens",
   "description": "Inline Mermaid diagrams for Markdown preview with themes and presets.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publisher": "mermaidlens",
   "license": "MIT",
   "repository": {
@@ -22,12 +22,15 @@
     "onStartupFinished",
     "onLanguage:markdown",
     "onCommand:mermaidlens.refresh",
-    "onCommand:mermaidlens.showWelcome"
+    "onCommand:mermaidlens.showWelcome",
+    "onCommand:mermaidlens.editDiagram",
+    "onCommand:mermaidlens.viewWithMermaidLens"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "markdown.markdownItPlugins": true,
     "markdown.previewScripts": [
+      "./media/mermaid.min.js",
       "./media/mermaid-init.js"
     ],
     "commands": [
@@ -39,8 +42,41 @@
         "command": "mermaidlens.showWelcome",
         "title": "MermaidLens: Show Welcome Page",
         "category": "MermaidLens"
+      },
+      {
+        "command": "mermaidlens.editDiagram",
+        "title": "MermaidLens: Edit Diagram",
+        "category": "MermaidLens"
+      },
+      {
+        "command": "mermaidlens.viewWithMermaidLens",
+        "title": "View with MermaidLens",
+        "category": "MermaidLens"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "mermaidlens.viewWithMermaidLens",
+          "when": "editorLangId == markdown",
+          "group": "1_navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "mermaidlens.viewWithMermaidLens",
+          "when": "editorLangId == markdown",
+          "group": "1_open"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "mermaidlens.viewWithMermaidLens",
+          "when": "resourceLangId == markdown",
+          "group": "1_open"
+        }
+      ]
+    },
     "configuration": {
       "title": "MermaidLens",
       "properties": {
@@ -57,7 +93,7 @@
         "mermaidlens.diagramOnHover": {
           "type": "boolean",
           "default": false,
-          "description": "When enabled, show a 'View diagram' placeholder; hovering reveals the diagram (no icon in preview)."
+          "description": "When enabled, show a 'View diagram' placeholder; hovering reveals the diagram. When false (default), diagrams are always shown inline and clickable to edit."
         }
       }
     }
@@ -67,7 +103,8 @@
   },
   "dependencies": {
     "@mermaidlens/core": "0.1.0",
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.0",
+    "mermaid": "^11.0.0"
   },
   "devDependencies": {
     "@types/markdown-it": "^13.0.7",

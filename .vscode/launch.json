@@ -5,7 +5,28 @@
       "name": "Launch Extension",
       "type": "extensionHost",
       "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extension"],
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/extension",
+        "${workspaceFolder}"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/extension/dist/**/*.js",
+        "${workspaceFolder}/packages/core/dist/**/*.js"
+      ],
+      "preLaunchTask": "npm: build",
+      "env": {
+        "NODE_OPTIONS": "--no-deprecation --no-warnings"
+      }
+    },
+    {
+      "name": "Launch Extension (perfil limpo, sem abas restauradas)",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/extension",
+        "${workspaceFolder}",
+        "--user-data-dir=${workspaceFolder}/.vscode-test/user-data"
+      ],
       "outFiles": [
         "${workspaceFolder}/extension/dist/**/*.js",
         "${workspaceFolder}/packages/core/dist/**/*.js"

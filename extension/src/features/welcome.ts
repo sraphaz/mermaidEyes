@@ -2,7 +2,10 @@ import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 
+let welcomeOpening = false;
+
 export async function showWelcomePage(context: vscode.ExtensionContext, forceShow = false): Promise<void> {
+  if (welcomeOpening) return;
   if (!forceShow) {
     const hasShown = context.globalState.get<boolean>("mermaidlens.hasShownWelcome");
     if (hasShown) {
@@ -10,11 +13,11 @@ export async function showWelcomePage(context: vscode.ExtensionContext, forceSho
       return;
     }
   }
+  welcomeOpening = true;
 
   const welcomePath = path.join(context.extensionPath, "media", "welcome.md");
   const welcomeUri = vscode.Uri.file(welcomePath);
   
-  // Verifica se o arquivo existe
   if (!fs.existsSync(welcomePath)) {
     const errorMsg = `[MermaidLens] Arquivo de boas-vindas não encontrado: ${welcomePath}`;
     console.error(errorMsg);
@@ -26,42 +29,28 @@ export async function showWelcomePage(context: vscode.ExtensionContext, forceSho
     console.log(`[MermaidLens] Abrindo página de boas-vindas: ${welcomePath}`);
     const doc = await vscode.workspace.openTextDocument(welcomeUri);
 
-    // Abre o documento
+    // 1) Abrir o documento no editor (preview: false para não reutilizar aba como "preview")
     await vscode.window.showTextDocument(doc, {
       preview: false,
-      viewColumn: vscode.ViewColumn.One
+      viewColumn: vscode.ViewColumn.One,
+      preserveFocus: false
     });
 
-    console.log("[MermaidLens] Documento aberto, aguardando para abrir preview...");
-
-    // Aguarda um pouco para garantir que o documento foi aberto
-    // e então abre o preview para mostrar os diagramas renderizados
-    setTimeout(async () => {
-      try {
-        console.log("[MermaidLens] Tentando abrir preview ao lado...");
-        // Tenta abrir o preview ao lado primeiro (melhor UX)
-        await vscode.commands.executeCommand("markdown.showPreviewToSide", welcomeUri);
-        console.log("[MermaidLens] Preview aberto com sucesso!");
-      } catch (error) {
-        console.warn("[MermaidLens] Erro ao abrir preview ao lado, tentando na mesma coluna...", error);
-        // Se falhar, tenta abrir o preview na mesma coluna
-        try {
-          await vscode.commands.executeCommand("markdown.showPreview", welcomeUri);
-          console.log("[MermaidLens] Preview aberto na mesma coluna.");
-        } catch (err) {
-          console.warn("[MermaidLens] Não foi possível abrir o preview automaticamente. Use Ctrl+Shift+V para abrir manualmente.", err);
-          // Mostra uma notificação amigável
-          vscode.window.showInformationMessage(
-            "MermaidLens: Página de boas-vindas aberta! Pressione Ctrl+Shift+V para ver os diagramas renderizados.",
-            "Abrir Preview"
-          ).then(selection => {
-            if (selection === "Abrir Preview") {
-              vscode.commands.executeCommand("markdown.showPreview", welcomeUri);
-            }
-          });
+    // 2) Abrir o preview ao lado uma única vez (evita abas/untitled extras)
+    try {
+      await vscode.commands.executeCommand("markdown.showPreviewToSide");
+      console.log("[MermaidLens] Preview aberto ao lado.");
+    } catch (e) {
+      console.warn("[MermaidLens] markdown.showPreviewToSide falhou:", e);
+      void vscode.window.showInformationMessage(
+        "MermaidLens: Pressione Ctrl+Shift+V para abrir o preview.",
+        "Abrir Preview"
+      ).then((selection) => {
+        if (selection === "Abrir Preview") {
+          void vscode.commands.executeCommand("markdown.showPreviewToSide");
         }
-      }
-    }, 500);
+      });
+    }
 
     if (!forceShow) {
       await context.globalState.update("mermaidlens.hasShownWelcome", true);
@@ -70,5 +59,7 @@ export async function showWelcomePage(context: vscode.ExtensionContext, forceSho
     const errorMsg = `Erro ao abrir página de boas-vindas: ${error}`;
     console.error(`[MermaidLens] ${errorMsg}`, error);
     vscode.window.showErrorMessage(`MermaidLens: ${errorMsg}`);
+  } finally {
+    welcomeOpening = false;
   }
 }
