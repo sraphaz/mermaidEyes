@@ -79,10 +79,12 @@ jobs:
           skipDuplicate: true
 
       - name: Create GitHub Release (se não existir)
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
           TAG="${{ steps.tag.outputs.tag }}"
-          gh release create "$TAG" --title "$TAG" --generate-notes --repo "${{ github.repository }}" || true
+          if ! gh release view "$TAG" --repo "${{ github.repository }}" 2>/dev/null; then
+            gh release create "$TAG" --title "$TAG" --generate-notes --repo "${{ github.repository }}"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
