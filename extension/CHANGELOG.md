@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.12] - 2026-01-29
+
+### Changed
+
+- **activate():** Log "[MermaidEyes] activate() started" at start and "activate() completed" at end in Output > MermaidEyes. Whole activate() wrapped in try/catch; errors logged to Output and panel shown for debugging (hover/view not firing).
+- **activationEvents:** Kept explicit so extension activates on startup, markdown, and commands.
+
 ## [0.2.11] - 2026-01-29
 
 ### Added
@@ -103,7 +110,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Initial release flow and documentation.
 
-[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.11...HEAD
+[Unreleased]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.12...HEAD
+[0.2.12]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.11...v0.2.12
 [0.2.11]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.10...v0.2.11
 [0.2.10]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.9...v0.2.10
 [0.2.9]: https://github.com/sraphaz/mermaidEyes/compare/v0.2.8...v0.2.9
